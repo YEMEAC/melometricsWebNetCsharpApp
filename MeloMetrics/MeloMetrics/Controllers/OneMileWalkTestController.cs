@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson;
+using MongoDB.Driver.Builders;
 
 namespace MeloMetrics.Controllers
 {
@@ -15,18 +16,19 @@ namespace MeloMetrics.Controllers
         // GET: OneMileWalkTest
         public ActionResult Index()
         {
-            var filter = new BsonDocument();
-            var sort = Builders<BsonDocument>.Sort.Ascending("borough").Ascending("address.zipcode");
 
-            var test = await Context.OneMileWalkTestCollection.Find(filter).Sort(sort).ToListAsync();
-            return View();
+            var oneMileWalktest = Context.OneMileWalkTestCollection.FindAll().SetSortOrder(SortBy<OneMileWalkTest>.Ascending(r => r.Id));
+            return View(oneMileWalktest);
+
         }
 
         // GET: OneMileWalkTest/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            return View();
+            var test = Context.OneMileWalkTestCollection.FindOneById(new ObjectId(id));
+            return View(test);
         }
+
 
         // GET: OneMileWalkTest/Create
         public ActionResult Create()
@@ -36,35 +38,36 @@ namespace MeloMetrics.Controllers
 
         // POST: OneMileWalkTest/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(OneMileWalkTest m)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
+                Context.OneMileWalkTestCollection.Insert(m);
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         // GET: OneMileWalkTest/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            var test = Context.OneMileWalkTestCollection.FindOneById(new ObjectId(id));
+            return View(test);
         }
 
         // POST: OneMileWalkTest/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(OneMileWalkTest t)
         {
             try
             {
-                // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    Context.OneMileWalkTestCollection.Save(t);
+                    return RedirectToAction("Index");
+                }
 
-                return RedirectToAction("Index");
+                return View();
             }
             catch
             {
@@ -73,20 +76,22 @@ namespace MeloMetrics.Controllers
         }
 
         // GET: OneMileWalkTest/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string Id)
         {
-            return View();
+            //var rental = Context.OneMileWalkTestCollection.FindOneById(new ObjectId("572b96fcf23adc16440d2daa"));
+            var rental = Context.OneMileWalkTestCollection.FindOneById(new ObjectId(Id));
+            return View(rental);
         }
 
         // POST: OneMileWalkTest/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                var rental = Context.OneMileWalkTestCollection.Remove(Query.EQ("_id", new ObjectId(id)));
                 return RedirectToAction("Index");
+
             }
             catch
             {
