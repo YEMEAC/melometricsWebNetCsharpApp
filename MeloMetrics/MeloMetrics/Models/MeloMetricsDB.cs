@@ -14,20 +14,15 @@ namespace MeloMetrics.Models
 {
     public class MeloMetricsDB
     {
-        //For Best practice, Please put this in the web.config. This is only for demo purpose.
-        //====================================================
-        public String connectionString = "mongodb://localhost";
-        public String DataBaseName = "MeloMetric";
-        //====================================================
 
         public MongoDatabase Database;
 
         public MeloMetricsDB()
 	    {
-            var client = new MongoClient(connectionString);
+            var client = new MongoClient(System.Configuration.ConfigurationManager.ConnectionStrings["MongoConnectionString"].ConnectionString);     
             var server = client.GetServer();
 
-            Database = server.GetDatabase(DataBaseName);
+            Database = server.GetDatabase(System.Configuration.ConfigurationManager.ConnectionStrings["MongoConnectionDB"].ConnectionString);
 	    }
 
         public MongoCollection<OneMileWalkTest> OneMileWalkTestCollection
