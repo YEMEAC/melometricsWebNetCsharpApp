@@ -25,20 +25,20 @@ namespace MeloMetrics.Controllers
 
 
             string pathFile = "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/scripts/sample_program.py";
-            string pathFitFile = "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/tests/data/mio.fit";
-            
+            string pathFitFile = "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/tests/data/54MH5016.fit";
 
             ScriptEngine engine = Python.CreateEngine();
             //urls donde ir a buscar includes y clases para compilar el script
             engine.SetSearchPaths(new string[] { "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/fitparse", "D:/Program Files (x86)/IronPython 2.7/Lib" });
             ScriptSource source = engine.CreateScriptSourceFromFile(pathFile);
             ScriptScope scope = engine.CreateScope();
+     
+           // scope.SetVariable("resultado", resultado);
             scope.SetVariable("pathFitFile", pathFitFile);
             ObjectOperations op = engine.Operations;
-            var result=source.Execute(scope);
+            var resultt=source.Execute(scope);
 
-           //dynamic Calculator = scope.GetVariable("txt");
-           
+            string Calculator = scope.GetVariable("result_string");
             
 
             var oneMileWalktest = Context.OneMileWalkTestCollection.FindAll().SetSortOrder(SortBy<OneMileWalkTest>.Ascending(r => r.Id));

@@ -2,10 +2,15 @@
 
 import os
 import sys
+from StringIO import StringIO
 
-txt=" "
-sys.stdout = open("C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/scripts/goat.txt", "w")
-#txt=sys.stdout
+#old_stdout = sys.stdout
+pathFitFile = "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/tests/data/54MH5016.fit"
+sys.stdout = open("C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/scripts/goat3.txt", "w")
+#result = StringIO()
+ 
+#sys.stdout = result
+
 # Add folder to search path
 
 PROJECT_PATH = os.path.realpath(os.path.join(sys.path[0], '..'))
@@ -21,6 +26,8 @@ if len(sys.argv) >= 2:
 
 if not filenames:
     filenames = [os.path.join(PROJECT_PATH, 'tests', 'data', pathFitFile)]
+
+
 
 
 def print_record(rec, ):
@@ -48,4 +55,6 @@ for f in filenames:
     a = Activity(f)
     a.parse(hook_func=print_hook_func)
 	
+#sys.stdout = old_stdout
+#result_string = result.getvalue()
 
