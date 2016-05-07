@@ -25,17 +25,19 @@ namespace MeloMetrics.Controllers
 
 
             string pathFile = "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/scripts/sample_program.py";
-            string script = "6+6"; // TODO - get Iron Python script
+            string pathFitFile = "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/tests/data/mio.fit";
+            
 
             ScriptEngine engine = Python.CreateEngine();
-
+            //urls donde ir a buscar includes y clases para compilar el script
             engine.SetSearchPaths(new string[] { "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/fitparse", "D:/Program Files (x86)/IronPython 2.7/Lib" });
             ScriptSource source = engine.CreateScriptSourceFromFile(pathFile);
             ScriptScope scope = engine.CreateScope();
+            scope.SetVariable("pathFitFile", pathFitFile);
             ObjectOperations op = engine.Operations;
-            source.Execute(scope);
+            var result=source.Execute(scope);
 
-           // dynamic Calculator = scope.GetVariable("s");
+           //dynamic Calculator = scope.GetVariable("txt");
            
             
 

@@ -2,7 +2,10 @@
 
 import os
 import sys
+
+txt=" "
 sys.stdout = open("C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/scripts/goat.txt", "w")
+#txt=sys.stdout
 # Add folder to search path
 
 PROJECT_PATH = os.path.realpath(os.path.join(sys.path[0], '..'))
@@ -17,7 +20,7 @@ if len(sys.argv) >= 2:
     filenames = [f for f in sys.argv[1:] if os.path.exists(f)]
 
 if not filenames:
-    filenames = [os.path.join(PROJECT_PATH, 'tests', 'data', 'mio.fit')]
+    filenames = [os.path.join(PROJECT_PATH, 'tests', 'data', pathFitFile)]
 
 
 def print_record(rec, ):
@@ -44,3 +47,5 @@ for f in filenames:
     record_number = 0
     a = Activity(f)
     a.parse(hook_func=print_hook_func)
+	
+
