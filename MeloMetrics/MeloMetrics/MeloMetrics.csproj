@@ -51,6 +51,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="IronPython">
+      <HintPath>..\packages\IronPython.2.7.5\lib\Net45\IronPython.dll</HintPath>
+    </Reference>
+    <Reference Include="IronPython.Modules">
+      <HintPath>..\packages\IronPython.2.7.5\lib\Net45\IronPython.Modules.dll</HintPath>
+    </Reference>
+    <Reference Include="IronPython.SQLite">
+      <HintPath>..\packages\IronPython.2.7.5\lib\Net45\IronPython.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="IronPython.Wpf">
+      <HintPath>..\packages\IronPython.2.7.5\lib\Net45\IronPython.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -64,6 +76,9 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Dynamic">
+      <HintPath>..\packages\IronPython.2.7.5\lib\Net45\Microsoft.Dynamic.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
@@ -99,6 +114,15 @@
     <Reference Include="Microsoft.Owin.Security.Twitter, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Scripting">
+      <HintPath>..\packages\IronPython.2.7.5\lib\Net45\Microsoft.Scripting.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Scripting.AspNet">
+      <HintPath>..\packages\IronPython.2.7.5\lib\Net45\Microsoft.Scripting.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Scripting.Metadata">
+      <HintPath>..\packages\IronPython.2.7.5\lib\Net45\Microsoft.Scripting.Metadata.dll</HintPath>
     </Reference>
     <Reference Include="MongoDB.Bson, Version=1.9.2.235, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -213,8 +237,31 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="python-fitparse-master\fitparse\activity.pyc" />
+    <Content Include="python-fitparse-master\fitparse\base.pyc" />
+    <Content Include="python-fitparse-master\fitparse\exceptions.pyc" />
+    <Content Include="python-fitparse-master\fitparse\profile.def" />
+    <Content Include="python-fitparse-master\fitparse\records.pyc" />
+    <Content Include="python-fitparse-master\fitparse\__init__.pyc" />
+    <Content Include="python-fitparse-master\LICENSE" />
+    <Content Include="python-fitparse-master\misc\FIT-SDK-1.2\FIT File types ANT+ Rev 1.1.pdf" />
+    <Content Include="python-fitparse-master\misc\FIT-SDK-1.2\Flexible &amp; Interoperable Data Transfer %28FIT%29 Protocol Rev 1.1.pdf" />
+    <Content Include="python-fitparse-master\misc\FIT-SDK-1.2\Profile.xls" />
+    <Content Include="python-fitparse-master\Readme.md" />
+    <Content Include="python-fitparse-master\tests\data\mio.FIT" />
+    <Content Include="python-fitparse-master\tests\data\sample-activity.fit" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
+    <Content Include="python-fitparse-master\fitparse\activity.py" />
+    <Content Include="python-fitparse-master\fitparse\base.py" />
+    <Content Include="python-fitparse-master\fitparse\exceptions.py" />
+    <Content Include="python-fitparse-master\fitparse\records.py" />
+    <Content Include="python-fitparse-master\fitparse\__init__.py" />
+    <Content Include="python-fitparse-master\scripts\generate_profile.py" />
+    <Content Include="python-fitparse-master\scripts\salida.txt" />
+    <Content Include="python-fitparse-master\scripts\salida2.txt" />
+    <Content Include="python-fitparse-master\scripts\sample_program.py" />
+    <Content Include="python-fitparse-master\tests\test.py" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.2.3.js" />

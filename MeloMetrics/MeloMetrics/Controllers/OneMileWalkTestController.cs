@@ -6,16 +6,38 @@ using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver.Builders;
+using Microsoft.Scripting.Hosting;
+using IronPython.Hosting;
+using Microsoft.Scripting;
 
 namespace MeloMetrics.Controllers
 {
     public class OneMileWalkTestController : Controller
     {
         private readonly MeloMetricsDB Context = new MeloMetricsDB();
+        private ScriptEngine m_engine = Python.CreateEngine();
+        private ScriptScope m_scope = null;
         
         // GET: OneMileWalkTest
         public ActionResult Index()
         {
+
+
+
+            string pathFile = "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/scripts/sample_program.py";
+            string script = "6+6"; // TODO - get Iron Python script
+
+            ScriptEngine engine = Python.CreateEngine();
+
+            engine.SetSearchPaths(new string[] { "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/fitparse", "D:/Program Files (x86)/IronPython 2.7/Lib" });
+            ScriptSource source = engine.CreateScriptSourceFromFile(pathFile);
+            ScriptScope scope = engine.CreateScope();
+            ObjectOperations op = engine.Operations;
+            source.Execute(scope);
+
+           // dynamic Calculator = scope.GetVariable("s");
+           
+            
 
             var oneMileWalktest = Context.OneMileWalkTestCollection.FindAll().SetSortOrder(SortBy<OneMileWalkTest>.Ascending(r => r.Id));
             return View(oneMileWalktest);
