@@ -40,9 +40,15 @@ namespace MeloMetrics.Models{
             }
         }
 
-        public MongoCursor<Activity> getMyTestCollection(string id_user)
+        public MongoCursor<Activity> getMyActivityCollection(string id_user)
         {
             var t = Database.GetCollection<Activity>("Activity").Find(Query.EQ("id_user", id_user));
+            return t;
+        }
+
+        public MongoCursor<ActivityRecord> getMyActivitysRecordsCollection(string id_activity)
+        {
+            var t = Database.GetCollection<ActivityRecord>("ActivityRecord").Find(Query.EQ("id_activity", id_activity));
             return t;
         }
 
@@ -164,5 +170,7 @@ namespace MeloMetrics.Models{
             string id_activity = string.Concat(t1,t2);
             return id_activity;
         }
+
+       
     }
 }

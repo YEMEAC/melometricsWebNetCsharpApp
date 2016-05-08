@@ -16,7 +16,7 @@ namespace MeloMetrics.Models
         public string id_user { get; set; }
         public string timestamp { get; set; }
         public string nombre { get; set; }
-        List<ActivityRecord> records { get; set; }
+        //List<ActivityRecord> records { get; set; }
 
     }
 }

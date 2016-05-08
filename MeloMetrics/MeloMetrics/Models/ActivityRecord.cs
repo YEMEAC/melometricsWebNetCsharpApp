@@ -15,6 +15,7 @@ namespace MeloMetrics.Models
         public string Id { get; set; }
 
         //public string nombre { get; set; }
+        public string id_activity { get; set; }
         public string timestamp { get; set; }
         public string position_lat { get; set; }
         public string position_long { get; set; }

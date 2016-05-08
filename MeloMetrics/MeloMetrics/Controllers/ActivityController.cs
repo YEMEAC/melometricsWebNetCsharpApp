@@ -13,18 +13,26 @@ namespace MeloMetrics.Controllers
         private readonly FitFileManager fitFileManager = new FitFileManager();
 
         // GET: Activity
+        //[ValidateAntiForgeryToken]
         public ActionResult Index()
         {
 
             string id_user = "0";
 
-            List<String> records = fitFileManager.readFile();
-            meloMetricsDB.insertActivityAndRecords(records, id_user, "test1", records[1]);
+            //List<String> records = fitFileManager.readFile();
+            //meloMetricsDB.insertActivityAndRecords(records, id_user, "test1", records[1]);
 
 
-            var r=meloMetricsDB.getMyTestCollection(id_user);
+            var r=meloMetricsDB.getMyActivityCollection(id_user);
             return View(r);
         }
+
+        public ActionResult DetalleActiviy(string id_activity)
+        {
+            var r = meloMetricsDB.getMyActivitysRecordsCollection(id_activity);
+            return View(r);
+        }
+
 
         // GET: Activity/Details/5
         public ActionResult Details(int id)
@@ -33,6 +41,7 @@ namespace MeloMetrics.Controllers
         }
 
         // GET: Activity/Create
+         //[ValidateAntiForgeryToken]
         public ActionResult Create()
         {
             return View();
@@ -40,6 +49,7 @@ namespace MeloMetrics.Controllers
 
         // POST: Activity/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(FormCollection collection)
         {
             try
@@ -62,6 +72,7 @@ namespace MeloMetrics.Controllers
 
         // POST: Activity/Edit/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try
@@ -84,6 +95,7 @@ namespace MeloMetrics.Controllers
 
         // POST: Activity/Delete/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
