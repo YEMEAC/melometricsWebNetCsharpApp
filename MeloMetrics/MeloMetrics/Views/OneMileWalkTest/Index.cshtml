@@ -13,25 +13,25 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Id)
+            @Html.DisplayNameFor(model => model.id_user)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.propietario)
+            @Html.DisplayNameFor(model => model.timestamp)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ritmocardiaco)
+            @Html.DisplayNameFor(model => model.position_lat)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.distancia)
+            @Html.DisplayNameFor(model => model.position_long)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.velocidad)
+            @Html.DisplayNameFor(model => model.distance)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.tiempo)
+            @Html.DisplayNameFor(model => model.speed)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.fecha)
+            @Html.DisplayNameFor(model => model.heart_rate)
         </th>
         <th></th>
     </tr>
@@ -39,30 +39,30 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Id)
+            @Html.DisplayFor(modelItem => item.id_user)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.propietario)
+            @Html.DisplayFor(modelItem => item.timestamp)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ritmocardiaco)
+            @Html.DisplayFor(modelItem => item.position_lat)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.distancia)
+            @Html.DisplayFor(modelItem => item.position_long)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.velocidad)
+            @Html.DisplayFor(modelItem => item.distance)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.tiempo)
+            @Html.DisplayFor(modelItem => item.speed)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.fecha)
+            @Html.DisplayFor(modelItem => item.heart_rate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

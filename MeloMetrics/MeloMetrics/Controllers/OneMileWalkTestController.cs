@@ -14,37 +14,17 @@ namespace MeloMetrics.Controllers
 {
     public class OneMileWalkTestController : Controller
     {
-        private readonly MeloMetricsDB Context = new MeloMetricsDB();
-        private ScriptEngine m_engine = Python.CreateEngine();
-        private ScriptScope m_scope = null;
+        private readonly MeloMetricsDB meloMetricsDB = new MeloMetricsDB();
+        private readonly FitFileManager fitFileManager = new FitFileManager();
         
         // GET: OneMileWalkTest
         public ActionResult Index()
         {
+            long id_user = 0;
+            var aux = fitFileManager.readFile();
+            meloMetricsDB.insertOneMileWalkTes(aux,id_user);
 
-
-
-            string pathFile = "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/scripts/meloMetricsFitReader.py";
-            string pathFitFile = "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/tests/data/sample-activity.fit";
-
-            ScriptEngine engine = Python.CreateEngine();
-            //urls donde ir a buscar includes y clases para compilar el script
-            engine.SetSearchPaths(new string[] { "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/fitparse", "D:/Program Files (x86)/IronPython 2.7/Lib" });
-            ScriptSource source = engine.CreateScriptSourceFromFile(pathFile);
-            ScriptScope scope = engine.CreateScope();
-     
-           // scope.SetVariable("resultado", resultado);
-            scope.SetVariable("pathFitFile", pathFitFile);
-            ObjectOperations op = engine.Operations;
-            var resultt=source.Execute(scope);
-
-            string datos = scope.GetVariable("result_string");
-            string[] tokens = datos.Split('|');
-            List<string> aux = tokens.ToList(); //confirimado que da lo mismo que en el out del archivo al hacer el split-1 , token size=12*lineas-1, lineas = numero de documentso en bd
-            aux.RemoveAt(aux.Count - 1);
-            Context.insertDocuments(aux);
-
-            var oneMileWalktest = Context.OneMileWalkTestCollection.FindAll().SetSortOrder(SortBy<OneMileWalkTest>.Ascending(r => r.Id));
+            var oneMileWalktest = meloMetricsDB.getMyOneMileWalkTestCollection(id_user);
             return View(oneMileWalktest);
 
         }
@@ -52,7 +32,7 @@ namespace MeloMetrics.Controllers
         // GET: OneMileWalkTest/Details/5
         public ActionResult Details(string id)
         {
-            var test = Context.OneMileWalkTestCollection.FindOneById(new ObjectId(id));
+            var test = meloMetricsDB.OneMileWalkTestCollection.FindOneById(new ObjectId(id));
             return View(test);
         }
 
@@ -69,7 +49,7 @@ namespace MeloMetrics.Controllers
         {
             if (ModelState.IsValid)
             {
-                Context.OneMileWalkTestCollection.Insert(m);
+                meloMetricsDB.OneMileWalkTestCollection.Insert(m);
                 return RedirectToAction("Index");
             }
             return View();
@@ -78,7 +58,7 @@ namespace MeloMetrics.Controllers
         // GET: OneMileWalkTest/Edit/5
         public ActionResult Edit(string id)
         {
-            var test = Context.OneMileWalkTestCollection.FindOneById(new ObjectId(id));
+            var test = meloMetricsDB.OneMileWalkTestCollection.FindOneById(new ObjectId(id));
             return View(test);
         }
 
@@ -90,7 +70,7 @@ namespace MeloMetrics.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Context.OneMileWalkTestCollection.Save(t);
+                    meloMetricsDB.OneMileWalkTestCollection.Save(t);
                     return RedirectToAction("Index");
                 }
 
@@ -105,8 +85,8 @@ namespace MeloMetrics.Controllers
         // GET: OneMileWalkTest/Delete/5
         public ActionResult Delete(string Id)
         {
-            //var rental = Context.OneMileWalkTestCollection.FindOneById(new ObjectId("572b96fcf23adc16440d2daa"));
-            var rental = Context.OneMileWalkTestCollection.FindOneById(new ObjectId(Id));
+            //var rental = meloMetricsDB.OneMileWalkTestCollection.FindOneById(new ObjectId("572b96fcf23adc16440d2daa"));
+            var rental = meloMetricsDB.OneMileWalkTestCollection.FindOneById(new ObjectId(Id));
             return View(rental);
         }
 
@@ -116,7 +96,7 @@ namespace MeloMetrics.Controllers
         {
             try
             {
-                var rental = Context.OneMileWalkTestCollection.Remove(Query.EQ("_id", new ObjectId(id)));
+                var rental = meloMetricsDB.OneMileWalkTestCollection.Remove(Query.EQ("_id", new ObjectId(id)));
                 return RedirectToAction("Index");
 
             }

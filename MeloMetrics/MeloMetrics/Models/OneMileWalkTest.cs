@@ -16,12 +16,14 @@ namespace MeloMetrics.Models
 
         
    
-        public long propietario { get; set; }
-        public decimal ritmocardiaco { get; set; }
-        public float distancia { get; set; }
-        public float velocidad { get; set; }
-        public string tiempo { get; set; }
-        public string fecha { get; set; }
+        public long id_user { get; set; }
+        public string timestamp { get; set; }
+        public string position_lat { get; set; }
+        public string position_long { get; set; }
+        public string distance { get; set; }
+        public string speed { get; set; }
+        public string heart_rate { get; set; }
+       
        
     }
 }
