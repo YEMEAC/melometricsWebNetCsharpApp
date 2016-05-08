@@ -4,12 +4,16 @@ import os
 import sys
 from StringIO import StringIO
 
-#old_stdout = sys.stdout
-pathFitFile = "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/tests/data/mio.fit"
-sys.stdout = open("C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/scripts/updateBitch.txt", "w")
-#result = StringIO()
- 
-#sys.stdout = result
+
+ #pathFitFile = "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/tests/data/sample-activity.fit"
+
+#redireccionar salida a archivo
+#sys.stdout = open("C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/scripts/updateBitch.txt", "w")
+
+#redireccionar salida
+old_stdout = sys.stdout
+result = StringIO() 
+sys.stdout = result
 
 # Add folder to search path
 
@@ -40,12 +44,14 @@ def print_record(rec, ):
     to_print=""
     for field in rec.fields:
 		if len(rec.fields) >= 6 and (field.name == 'timestamp' or field.name == 'position_lat' or field.name == 'position_long'  or field.name == 'distance' or field.name =='speed' or  field.name =='heart_rate'):
-			to_print += "%s : %s " % (field.name, field.data)
+			to_print += "%s|%s|" % (field.name, field.data)
 			count=count+1
 			#if field.data is not None and field.units:
 				#to_print += " [%s]" % field.units
+				
     if count==6:
-        print to_print
+	     #print to_print
+        sys.stdout.write(to_print)
 
 for f in filenames:
     #if quiet:
@@ -60,7 +66,8 @@ for f in filenames:
     record_number = 0
     a = Activity(f)
     a.parse(hook_func=print_hook_func)
-	
-#sys.stdout = old_stdout
-#result_string = result.getvalue()
+
+#redireccionar salida
+sys.stdout = old_stdout
+result_string = result.getvalue()
 

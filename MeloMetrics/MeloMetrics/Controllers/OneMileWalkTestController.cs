@@ -24,8 +24,8 @@ namespace MeloMetrics.Controllers
 
 
 
-            string pathFile = "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/scripts/sample_program.py";
-            string pathFitFile = "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/tests/data/54MH5016.fit";
+            string pathFile = "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/scripts/meloMetricsFitReader.py";
+            string pathFitFile = "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/tests/data/sample-activity.fit";
 
             ScriptEngine engine = Python.CreateEngine();
             //urls donde ir a buscar includes y clases para compilar el script
@@ -38,8 +38,11 @@ namespace MeloMetrics.Controllers
             ObjectOperations op = engine.Operations;
             var resultt=source.Execute(scope);
 
-            string Calculator = scope.GetVariable("result_string");
-            
+            string datos = scope.GetVariable("result_string");
+            string[] tokens = datos.Split('|');
+            List<string> aux = tokens.ToList(); //confirimado que da lo mismo que en el out del archivo al hacer el split-1 , token size=12*lineas-1, lineas = numero de documentso en bd
+            aux.RemoveAt(aux.Count - 1);
+            Context.insertDocuments(aux);
 
             var oneMileWalktest = Context.OneMileWalkTestCollection.FindAll().SetSortOrder(SortBy<OneMileWalkTest>.Ascending(r => r.Id));
             return View(oneMileWalktest);
