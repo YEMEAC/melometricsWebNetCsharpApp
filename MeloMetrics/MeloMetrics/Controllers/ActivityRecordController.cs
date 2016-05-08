@@ -12,26 +12,27 @@ using Microsoft.Scripting;
 
 namespace MeloMetrics.Controllers
 {
-    public class OneMileWalkTestController : Controller
+    public class ActivityRecordController : Controller
     {
         private readonly MeloMetricsDB meloMetricsDB = new MeloMetricsDB();
         private readonly FitFileManager fitFileManager = new FitFileManager();
         
-        // GET: OneMileWalkTest
+        // GET: ActivityRecord
+        /*
         public ActionResult Index()
         {
             long id_user = 0;
-            List<String>  aux = fitFileManager.readFile();
+            //List<String>  aux = fitFileManager.readFile();
           
-            meloMetricsDB.insertDocumentsOneMileWalkTes(aux, id_user);
+            //meloMetricsDB.insertDocumentsOneMileWalkTes(aux, id_user);
 
             //var oneMileWalktest = meloMetricsDB.getMyOneMileWalkTestCollection(id_user);
-            var oneMileWalktest = meloMetricsDB.getMyOneMileWalkTestActivity(id_user, "14627228151429631557");
+            //var oneMileWalktest = meloMetricsDB.getMyActiVYrECOR(id_user, "14627228151429631557");
             return View(oneMileWalktest);
 
         }
 
-        // GET: OneMileWalkTest/Details/5
+        // GET: ActivityRecord/Details/5
         public ActionResult Details(string id)
         {
             var test = meloMetricsDB.OneMileWalkTestCollection.FindOneById(new ObjectId(id));
@@ -39,15 +40,16 @@ namespace MeloMetrics.Controllers
         }
 
 
-        // GET: OneMileWalkTest/Create
+        // GET: ActivityRecord/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: OneMileWalkTest/Create
+        // POST: ActivityRecord/Create
         [HttpPost]
-        public ActionResult Create(OneMileWalkTest m)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(ActivityRecordController m)
         {
             if (ModelState.IsValid)
             {
@@ -57,16 +59,16 @@ namespace MeloMetrics.Controllers
             return View();
         }
 
-        // GET: OneMileWalkTest/Edit/5
+        // GET: ActivityRecord/Edit/5
         public ActionResult Edit(string id)
         {
             var test = meloMetricsDB.OneMileWalkTestCollection.FindOneById(new ObjectId(id));
             return View(test);
         }
 
-        // POST: OneMileWalkTest/Edit/5
+        // POST: ActivityRecord/Edit/5
         [HttpPost]
-        public ActionResult Edit(OneMileWalkTest t)
+        public ActionResult Edit(ActivityRecordController t)
         {
             try
             {
@@ -84,7 +86,7 @@ namespace MeloMetrics.Controllers
             }
         }
 
-        // GET: OneMileWalkTest/Delete/5
+        // GET: ActivityRecord/Delete/5
         public ActionResult Delete(string Id)
         {
             //var rental = meloMetricsDB.OneMileWalkTestCollection.FindOneById(new ObjectId("572b96fcf23adc16440d2daa"));
@@ -92,7 +94,7 @@ namespace MeloMetrics.Controllers
             return View(rental);
         }
 
-        // POST: OneMileWalkTest/Delete/5
+        // POST: ActivityRecord/Delete/5
         [HttpPost]
         public ActionResult Delete(string id, FormCollection collection)
         {
@@ -106,6 +108,6 @@ namespace MeloMetrics.Controllers
             {
                 return View();
             }
-        }
+        }*/
     }
 }

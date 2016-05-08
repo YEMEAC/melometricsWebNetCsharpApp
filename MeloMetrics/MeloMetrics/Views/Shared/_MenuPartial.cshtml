@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+   using (Html.BeginForm())
+   {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+        <li>@Html.ActionLink("Activties", "Index", "OneMileWalkTest")</li>
+        <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
+        <li>@Html.ActionLink("Acerca de MeloMetrics", "About", "Home")</li>
+
+        <!--  <li>@Html.ActionLink("VO2MaxSpeed Test", "Index", "OneMileWalkTest")</li>
+        <li>@Html.ActionLink("One Mile Walk Test", "Contact", "Home")</li>
+        <li>@Html.ActionLink("One Mile Half Run Test", "About", "Home")</li>-->
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+        <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
+        <li>@Html.ActionLink("Acerca de MeloMetrics", "About", "Home")</li>
+    </ul>
+}

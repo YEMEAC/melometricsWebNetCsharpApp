@@ -8,16 +8,13 @@ using System.Web;
 
 namespace MeloMetrics.Models
 {
-    public class OneMileWalkTest
+    public class ActivityRecord
     {
       // [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
-        
-   
-        public long id_user { get; set; }
-        public string id_activity { get; set; } //convinacion timestamp formato epoch momento guardado+ timestamp primer registro
+        //public string nombre { get; set; }
         public string timestamp { get; set; }
         public string position_lat { get; set; }
         public string position_long { get; set; }
