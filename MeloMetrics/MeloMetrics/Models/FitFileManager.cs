@@ -25,7 +25,7 @@ namespace MeloMetrics.Models
         public List<String> readFile()
         {
             string pathFile = "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/scripts/meloMetricsFitReader.py";
-            string pathFitFile = "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/tests/data/sample-activity.fit";
+            string pathFitFile = "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/tests/data/mio.fit";
    
             source = engine.CreateScriptSourceFromFile(pathFile);
             scope = engine.CreateScope();

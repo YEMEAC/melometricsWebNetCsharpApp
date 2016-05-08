@@ -17,6 +17,7 @@ namespace MeloMetrics.Models
         
    
         public long id_user { get; set; }
+        public string id_activity { get; set; } //convinacion timestamp formato epoch momento guardado+ timestamp primer registro
         public string timestamp { get; set; }
         public string position_lat { get; set; }
         public string position_long { get; set; }

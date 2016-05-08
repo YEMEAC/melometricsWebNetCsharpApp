@@ -16,6 +16,9 @@
             @Html.DisplayNameFor(model => model.id_user)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.id_activity)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.timestamp)
         </th>
         <th>
@@ -40,6 +43,9 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.id_user)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_activity)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.timestamp)

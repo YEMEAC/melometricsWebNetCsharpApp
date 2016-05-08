@@ -50,41 +50,60 @@ namespace MeloMetrics.Models{
         }
 
       
+        //collecion completa del usuario
         public MongoCursor<OneMileWalkTest> getMyOneMileWalkTestCollection(long id_user)
         {
             MongoCursor<OneMileWalkTest> OneMileWalkTest = Database.GetCollection<OneMileWalkTest>("OneMileWalkTest").Find(Query.EQ("id_user", id_user));
             return OneMileWalkTest;
         }
 
+        //activity completa del usuario
+        public MongoCursor<OneMileWalkTest> getMyOneMileWalkTestActivity(long id_user, string id_activity)
+        {
+            var query = Query.And(
+            Query.EQ("id_user", id_user),
+            Query.EQ("id_activity", id_activity)
+            );
+
+            MongoCursor<OneMileWalkTest> OneMileWalkTest = Database.GetCollection<OneMileWalkTest>("OneMileWalkTest").Find(query);
+            return OneMileWalkTest;
+        }
+
+        //insert documents en colleciones
         public void insertDocumentsVO2MaxSpeedTest(List<string> datos, long id_user)
         {
-
+            string id_activity = getActivityId(datos[1]);
             for (int i=0; i< datos.Count; i+=12){
-                var document = createDocument(datos,i, id_user);
+                var document = createDocument(datos,i, id_user, id_activity);
                 VO2MaxSpeedTestCollection.Insert(document);
             } 
         }
 
-        public void insertOneMileWalkTes(List<string> datos, long id_user)
+        public void insertDocumentsOneMileWalkTes(List<string> datos, long id_user)
         {
-
+            string id_activity = getActivityId(datos[1]);
             for (int i = 0; i < datos.Count; i += 12) {
-                var document = createDocument(datos, i, id_user);
+                var document = createDocument(datos, i, id_user, id_activity);
                 OneMileWalkTestCollection.Insert(document);
             }
         }
 
-        public void insertDocumentsOneHalfMileWalkTest(List<string> datos, long id_user) {
-
+        public void insertDocumentsOneHalfMileWalkTest(List<string> datos, long id_user)
+        {
+            string id_activity = getActivityId(datos[1]);
             for (int i = 0; i < datos.Count; i += 12){
-                var document = createDocument(datos, i, id_user);
+                var document = createDocument(datos, i, id_user, id_activity);
                 OneHalfMileWalkTestCollection.Insert(document);
             }
         }
 
-        private BsonDocument createDocument(List<string> datos, int i, long id_user){
+
+        //privates
+        private BsonDocument createDocument(List<string> datos, int i, long id_user, string id_activity)
+        {
             var document = new BsonDocument{
-                    {"id_user", id_user}, 
+                    {"id_user", id_user},
+                    {"id_activity", id_activity},
                     {datos[i], datos[i+1]}, 
                     {datos[i+2], datos[i+3]}, 
                     {datos[i+4], datos[i+5]}, 
@@ -93,6 +112,14 @@ namespace MeloMetrics.Models{
                     {datos[i+10], datos[i+11]}
                 };
             return document;
+        }
+
+        private string getActivityId(string timestamp){
+            //convert to epoch time uni time
+            string t1 = (Math.Ceiling(((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds))).ToString();
+            string t2 = (Math.Ceiling(((DateTime.Parse(timestamp)- new DateTime(1970, 1, 1)).TotalSeconds))).ToString();
+            string id_activity = string.Concat(t1,t2);
+            return id_activity;
         }
     }
 }

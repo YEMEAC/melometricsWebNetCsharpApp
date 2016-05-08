@@ -21,10 +21,12 @@ namespace MeloMetrics.Controllers
         public ActionResult Index()
         {
             long id_user = 0;
-            var aux = fitFileManager.readFile();
-            meloMetricsDB.insertOneMileWalkTes(aux,id_user);
+            List<String>  aux = fitFileManager.readFile();
+          
+            meloMetricsDB.insertDocumentsOneMileWalkTes(aux, id_user);
 
-            var oneMileWalktest = meloMetricsDB.getMyOneMileWalkTestCollection(id_user);
+            //var oneMileWalktest = meloMetricsDB.getMyOneMileWalkTestCollection(id_user);
+            var oneMileWalktest = meloMetricsDB.getMyOneMileWalkTestActivity(id_user, "14627228151429631557");
             return View(oneMileWalktest);
 
         }
