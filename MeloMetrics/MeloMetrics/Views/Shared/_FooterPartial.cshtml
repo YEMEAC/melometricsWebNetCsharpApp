@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <footer>
+            <p>@Html.ActionLink("Contacto", "Contact", "Home") |
+            @Html.ActionLink("Acerca de MeloMetrics", "About", "Home") |
+            &copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    }
+}
+else
+{
+    <footer>
+        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>
+}

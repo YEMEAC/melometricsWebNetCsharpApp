@@ -18,7 +18,9 @@ namespace MeloMetrics.Models
         {
             engine = Python.CreateEngine();
             //urls donde ir a buscar includes y clases para compilar el script
-            engine.SetSearchPaths(new string[] { "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/fitparse", "D:/Program Files (x86)/IronPython 2.7/Lib" });
+            //engine.SetSearchPaths(new string[] { "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/fitparse", "D:/Program Files (x86)/IronPython 2.7/Lib" });
+            engine.SetSearchPaths(new string[] { "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/fitparse"});
+            
             
         }
 
@@ -40,4 +42,6 @@ namespace MeloMetrics.Models
             return aux;
         }
     }
+
+
 }
