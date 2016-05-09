@@ -14,9 +14,16 @@ namespace MeloMetrics.Controllers
 {
     public class ActivityRecordController : Controller
     {
-        private readonly MeloMetricsDB meloMetricsDB = new MeloMetricsDB();
-        private readonly FitFileManager fitFileManager = new FitFileManager();
-        
+       
+     
+        // GET: ActivityRecord
+        public ActionResult Index(string id_activity)
+        {
+            var r = MeloMetricsDB.getMeloMetricsDB().getMyActivitysRecordsCollection(id_activity);
+            return View(r);
+        }
+
+
         // GET: ActivityRecord
         /*
         public ActionResult Index()

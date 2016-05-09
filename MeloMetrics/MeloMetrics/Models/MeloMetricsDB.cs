@@ -8,19 +8,29 @@ using System.Threading.Tasks;
 using MongoDB.Driver.Builders;
 
 
-
+//singleton
 namespace MeloMetrics.Models{
     public class MeloMetricsDB {
 
-        public MongoDatabase Database;
+        private MongoDatabase Database { get; set; }
+        private static MeloMetricsDB meloMetricsDB;
 
-        public MeloMetricsDB(){
+        private MeloMetricsDB(){
             var client = new MongoClient(System.Configuration.ConfigurationManager.ConnectionStrings["MongoConnectionString"].ConnectionString);     
             var server = client.GetServer();
 
             Database = server.GetDatabase(System.Configuration.ConfigurationManager.ConnectionStrings["MongoConnectionDB"].ConnectionString);
 	    }
 
+        public static MeloMetricsDB getMeloMetricsDB()
+        {
+            if (meloMetricsDB == null)
+            {
+                meloMetricsDB = new MeloMetricsDB();
+            }
+            
+            return meloMetricsDB;
+        }
 
         public MongoCollection<Activity> ActivityCollection
         {

@@ -9,8 +9,6 @@ namespace MeloMetrics.Controllers
 {
     public class ActivityController : Controller
     {
-        private readonly MeloMetricsDB meloMetricsDB = new MeloMetricsDB();
-        private readonly FitFileManager fitFileManager = new FitFileManager();
 
         // GET: Activity
         //[ValidateAntiForgeryToken]
@@ -19,17 +17,7 @@ namespace MeloMetrics.Controllers
 
             string id_user = "0";
 
-            //List<String> records = fitFileManager.readFile();
-            //meloMetricsDB.insertActivityAndRecords(records, id_user, "test1", records[1]);
-
-
-            var r=meloMetricsDB.getMyActivityCollection(id_user);
-            return View(r);
-        }
-
-        public ActionResult DetalleActiviy(string id_activity)
-        {
-            var r = meloMetricsDB.getMyActivitysRecordsCollection(id_activity);
+            var r=MeloMetricsDB.getMeloMetricsDB().getMyActivityCollection(id_user);
             return View(r);
         }
 

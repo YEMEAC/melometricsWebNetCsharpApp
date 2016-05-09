@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MeloMetrics.Models;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -9,24 +11,35 @@ namespace MeloMetrics.Controllers
 {
     public class FitFileManagerController : Controller
     {
+
+        private readonly FitFileManager fitFileManager = new FitFileManager();
+
         // GET: FitFileManager
         public ActionResult Index()
         {
             return View();
         }
 
-        /// <summary>
-        /// to Save DropzoneJs Uploaded Files
-        /// </summary>
-        public ActionResult SaveDropzoneJsUploadedFiles()
+        // This action handles the form POST and the upload
+        [HttpPost]
+        public ActionResult Index(HttpPostedFileBase file)
         {
-            foreach (string fileName in Request.Files)
+            // Verify that the user selected a file
+            if (file != null && file.ContentLength > 0)
             {
-                HttpPostedFileBase file = Request.Files[fileName];
-                //You can Save the file content here
-            }
 
-            return Json(new { Message = string.Empty });
+                string id_user = "0";
+                var fileName = Path.GetFileName(file.FileName);
+                //string path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                string path = Path.Combine(Server.MapPath("~/uploads"), fileName);
+                file.SaveAs(path);
+
+               List<String> records = fitFileManager.readFile(path);
+               MeloMetricsDB.getMeloMetricsDB().insertActivityAndRecords(records, id_user, "test1", records[1]);
+               
+            }
+            // redirect back to the index action to show the form once again
+            return RedirectToAction("Index");
         }
 
         // GET: FitFileManager/Details/5

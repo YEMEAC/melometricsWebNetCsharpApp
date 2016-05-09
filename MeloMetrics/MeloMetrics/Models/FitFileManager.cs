@@ -10,26 +10,23 @@ namespace MeloMetrics.Models
     public class FitFileManager
     {
 
-        ScriptEngine engine;
-        ScriptSource source;
-        ScriptScope scope;
+        private ScriptEngine engine;
+        private ScriptSource source;
+        private ScriptScope scope;
+        private string pathPythonScript = "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/scripts/meloMetricsFitReader.py";
 
         public FitFileManager()
         {
             engine = Python.CreateEngine();
             //urls donde ir a buscar includes y clases para compilar el script
-            //engine.SetSearchPaths(new string[] { "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/fitparse", "D:/Program Files (x86)/IronPython 2.7/Lib" });
-            engine.SetSearchPaths(new string[] { "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/fitparse"});
-            
-            
+            engine.SetSearchPaths(new string[] { "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/fitparse", "D:/Program Files (x86)/IronPython 2.7/Lib" });
+               
         }
 
-        public List<String> readFile()
+        public List<String> readFile(string pathFitFile)
         {
-            string pathFile = "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/scripts/meloMetricsFitReader.py";
-            string pathFitFile = "C:/Users/Jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/tests/data/mio.fit";
-   
-            source = engine.CreateScriptSourceFromFile(pathFile);
+            
+            source = engine.CreateScriptSourceFromFile(pathPythonScript);
             scope = engine.CreateScope();
      
             scope.SetVariable("pathFitFile", pathFitFile);
