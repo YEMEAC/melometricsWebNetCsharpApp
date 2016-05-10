@@ -7,6 +7,19 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    <script type="text/javascript">
+    $('tr').click(function () {
+        window.location = $(this).find('a').attr('href');
+    }).hover(function () {
+        $(this).toggleClass('hover');
+    });
+    </script>
+    <style type="text/css">
+        tr.hover {
+            cursor: pointer;
+            /* whatever other hover styles you want */
+        }
+    </style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -33,7 +46,6 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/dropzone")
     @RenderSection("scripts", required: false)
 </body>
 </html>
