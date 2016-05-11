@@ -229,6 +229,14 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Dashboard\bootstrap-table.css" />
+    <Content Include="Content\Dashboard\bootstrap-theme.css" />
+    <Content Include="Content\Dashboard\bootstrap-theme.min.css" />
+    <Content Include="Content\Dashboard\bootstrap.css" />
+    <Content Include="Content\Dashboard\bootstrap.min.css" />
+    <Content Include="Content\Dashboard\datepicker.css" />
+    <Content Include="Content\Dashboard\datepicker3.css" />
+    <Content Include="Content\Dashboard\styles.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -254,6 +262,8 @@
     <Content Include="python-fitparse-master\Readme.md" />
     <Content Include="python-fitparse-master\tests\data\mio.FIT" />
     <Content Include="python-fitparse-master\tests\data\sample-activity.fit" />
+    <Content Include="Content\Dashboard\bootstrap-theme.css.map" />
+    <Content Include="Content\Dashboard\bootstrap.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="python-fitparse-master\fitparse\activity.py" />
@@ -268,8 +278,6 @@
     <Content Include="python-fitparse-master\tests\test.py" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\dropzone.js" />
-    <Content Include="Scripts\dropzone.min.js" />
     <Content Include="Scripts\jquery-2.2.3.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
     <Content Include="Scripts\jquery-2.2.3.min.map" />
@@ -278,6 +286,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\lumino.glyphs.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />

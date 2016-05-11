@@ -3,10 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>@ViewBag.Title - MeloMetrics</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    <link href="~/Content/Dashboard/styles.css" rel="stylesheet">
+    <script src="~/Scripts/lumino.glyphs.js"></script>
     <script type="text/javascript">
     $('tr').click(function () {
         window.location = $(this).find('a').attr('href');
