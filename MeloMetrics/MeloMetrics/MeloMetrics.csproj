@@ -326,6 +326,7 @@
     <Content Include="Views\Activity\DetalleActiviy.cshtml" />
     <Content Include="Views\FitFileManager\Index.cshtml" />
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
+    <Content Include="Views\Activity\Partial\_ActivityResumenPanel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
