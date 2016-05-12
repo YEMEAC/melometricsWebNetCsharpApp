@@ -2,8 +2,8 @@
 
 @using Microsoft.AspNet.Identity
 @{
-    ViewBag.Title = "Activities";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    //ViewBag.Title = "Activities";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
@@ -11,27 +11,28 @@
 @if (Request.IsAuthenticated)
 {
 
-    @Html.Partial("Partial/_ActivityResumenPanel")
 
-   using (Html.BeginForm("Index", "FitFileManager", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
+
+    using (Html.BeginForm("Index", "FitFileManager", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.Partial("Partial/_ActivityResumenPanel")
+
+    <div id="containerUploadFile">
         <div class="fileUpload btn btn-primary">
             <span>Upload</span>
             <input name="fileNameIdController" type="file" class="upload" onchange='$("#upload-file-info").html($(this).val());' />
-           
-        </div>
-         //<input id="uploadFile" placeholder="Choose File" disabled="disabled" />
-            <span style="width:180px;" class='btn btn-info' id="upload-file-info">&nbsp;</span>
-        <input type="submit" class="btn btn-warning" value="ok">
 
-}
+        </div>
+        <span style="width:180px;" class='btn btn-info' id="upload-file-info">&nbsp;</span>
+        <input type="submit" class="btn btn-warning" value="ok">
+    </div>
+    }
 
     using (Html.BeginForm())
     {
 
         @Html.AntiForgeryToken()
 
-        <h2>Index</h2>
 
         <p>
             @Html.ActionLink("Create New", "Create")

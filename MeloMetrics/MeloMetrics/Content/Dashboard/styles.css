@@ -8,7 +8,7 @@ Version 1.0
 .fileUpload {
     position: relative;
     overflow: hidden;
-    margin: 10px;
+   
 }
 .fileUpload input.upload {
     position: absolute;
@@ -26,12 +26,13 @@ Version 1.0
    position:static;
 }
 
-.colprueba{
+.elementDashboard{
     width:270px;
     float:left;
 }
 .dashboardPanel{
     margin-top:30px;
+    margin-left:13px;
 }
 .panel-widget {
 	padding: 0;
@@ -41,9 +42,7 @@ Version 1.0
 .panel-widget {
 	background: #fff;
 }
-.panel-widget .glyph {
-	stroke-width: 2px;
-}
+
 
 .widget-left {
 	height: 80px;
@@ -52,15 +51,14 @@ Version 1.0
 	border-top-left-radius: 4px;
 	border-bottom-left-radius: 4px;
 }
-@media (max-width: 768px) {
-	.widget-left {
-	border-top-left-radius: 4px;
-	border-top-right-radius: 4px;
-	border-bottom-left-radius: 0px;
-	border-bottom-right-radius: 0px;
-	}
-}
+
+/*colores de los elementos del dashboard*/
 .panel-blue .widget-left { background: #30a5ff; color: #fff; }
 .panel-teal .widget-left { background: #1ebfae; color: #fff; }
 .panel-orange .widget-left { background: #ffb53e; color: #fff; }
 .panel-red .widget-left { background: #f9243f; color: #fff; }
+
+/**grosor de los dibujos*/
+.panel-widget .glyph {
+	stroke-width: 2px;
+}
