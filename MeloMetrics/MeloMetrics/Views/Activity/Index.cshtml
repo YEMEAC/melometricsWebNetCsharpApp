@@ -13,20 +13,18 @@
 
     @Html.Partial("Partial/_ActivityResumenPanel")
 
-    using (Html.BeginForm("Index", "FitFileManager", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        <div id="containerformfile">
-            <div style="position:relative;">
-                <a class='btn btn-success' href='javascript:;'>
-                    Choose File...
-                    <input class="file" type="file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file_source" size="40" onchange='$("#upload-file-info").html($(this).val());'>
-                </a>
-
-                <span class='btn btn-info' id="upload-file-info">&nbsp;</span>
-                <input type="submit" class="btn btn-warning" value="ok">
-            </div>
+   using (Html.BeginForm("Index", "FitFileManager", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+        <div class="fileUpload btn btn-primary">
+            <span>Upload</span>
+            <input name="fileNameIdController" type="file" class="upload" onchange='$("#upload-file-info").html($(this).val());' />
+           
         </div>
-    }
+         //<input id="uploadFile" placeholder="Choose File" disabled="disabled" />
+            <span style="width:180px;" class='btn btn-info' id="upload-file-info">&nbsp;</span>
+        <input type="submit" class="btn btn-warning" value="ok">
+
+}
 
     using (Html.BeginForm())
     {

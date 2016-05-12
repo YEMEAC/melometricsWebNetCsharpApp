@@ -22,17 +22,17 @@ namespace MeloMetrics.Controllers
 
         // This action handles the form POST and the upload
         [HttpPost]
-        public ActionResult Index(HttpPostedFileBase file)
+        public ActionResult Index(HttpPostedFileBase fileNameIdController)
         {
             // Verify that the user selected a file
-            if (file != null && file.ContentLength > 0)
+            if (fileNameIdController != null && fileNameIdController.ContentLength > 0)
             {
 
                 string id_user = "0";
-                var fileName = Path.GetFileName(file.FileName);
+                var fileName = Path.GetFileName(fileNameIdController.FileName);
                 //string path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
                 string path = Path.Combine(Server.MapPath("~/uploads"), fileName);
-                file.SaveAs(path);
+                fileNameIdController.SaveAs(path);
 
                List<String> records = fitFileManager.readFile(path);
                MeloMetricsDB.getMeloMetricsDB().insertActivityAndRecords(records, id_user, "test1", records[1]);
