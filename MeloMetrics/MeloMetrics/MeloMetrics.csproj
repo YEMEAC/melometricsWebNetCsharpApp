@@ -237,6 +237,7 @@
     <Content Include="Content\Dashboard\datepicker.css" />
     <Content Include="Content\Dashboard\datepicker3.css" />
     <Content Include="Content\Dashboard\styles.css" />
+    <Content Include="Content\styles\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -332,10 +333,11 @@
     <Content Include="Views\Activity\Index.cshtml" />
     <Content Include="Views\Activity\Details.cshtml" />
     <Content Include="Views\Activity\Create.cshtml" />
-    <Content Include="Views\Activity\DetalleActiviy.cshtml" />
     <Content Include="Views\FitFileManager\Index.cshtml" />
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
-    <Content Include="Views\Activity\Partial\_ActivityResumenPanel.cshtml" />
+    <Content Include="Views\Activity\Partial\_SummaryPanel.cshtml" />
+    <Content Include="Views\ActivityRecord\Partial\_DetailsPanel.cshtml" />
+    <Content Include="Views\ActivityRecord\Partial\_Charts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
