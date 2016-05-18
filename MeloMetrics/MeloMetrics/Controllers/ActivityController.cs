@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+using MongoDB.Driver;
 
 namespace MeloMetrics.Controllers
 {
@@ -12,13 +14,43 @@ namespace MeloMetrics.Controllers
 
         // GET: Activity
         //[ValidateAntiForgeryToken]
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
 
-            string id_user = "0";
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
 
-            var r=MeloMetricsDB.getMeloMetricsDB().getMyActivityCollection(id_user);
+            string id_user = "0";
+            MongoCursor<Activity> r;
+
+            switch (sortOrder)
+            {
+                case "name":
+                     r = MeloMetricsDB.getMeloMetricsDB().getMyActivityCollection(id_user);
+                    break;
+                case "name_desc":
+                    r = MeloMetricsDB.getMeloMetricsDB().getMyActivityCollection(id_user);
+                    break;
+                case "Date":
+                    r = MeloMetricsDB.getMeloMetricsDB().getMyActivityCollection(id_user);
+                    break;
+                case "date_desc":
+                    r =MeloMetricsDB.getMeloMetricsDB().getMyActivityCollection(id_user);
+                    break;
+                case "identificador"
+                     r =MeloMetricsDB.getMeloMetricsDB().getMyActivityCollection(id_user);
+                    break;
+                case "identificador_desc"
+                     r =MeloMetricsDB.getMeloMetricsDB().getMyActivityCollection(id_user);
+                    break;
+                default:
+                    r = MeloMetricsDB.getMeloMetricsDB().getMyActivityCollection(id_user);
+                    break;
+            }
+
+            
             return View(r);
+
         }
 
 

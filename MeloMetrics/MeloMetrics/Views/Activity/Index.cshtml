@@ -41,18 +41,18 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.id_activity)
+                    @Html.ActionLink("Id", "Index", new { sortOrder = ViewBag.Identificador })
+                </th>
+                <th> <!-- Este campo es redundante ya que solo vas a ver los de tu propio usuario -->
+                    @Html.ActionLink("Propietario", "Index", new { sortOrder = ViewBag.DateSortParm })
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.id_user)
+                    @Html.ActionLink("Creado", "Index", new { sortOrder = ViewBag.DateSortParm})
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.timestamp)
+                    @Html.ActionLink("Nombre", "Index", new { sortOrder = ViewBag.NameSortParm})
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.nombre)
-                </th>
-                <th></th>
+                <th>Acciones</th>
             </tr>
         </thead>
             @foreach (var item in Model)
