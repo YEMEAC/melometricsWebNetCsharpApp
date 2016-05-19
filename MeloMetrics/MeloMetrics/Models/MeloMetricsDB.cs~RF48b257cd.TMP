@@ -32,6 +32,9 @@ namespace MeloMetrics.Models{
             return meloMetricsDB;
         }
 
+
+
+
         public MongoCursor<Activity> getMyActivityCollection(string id_user)
         {
             var t = Database.GetCollection<Activity>("Activity").Find(Query.EQ("id_user", id_user));
@@ -63,23 +66,13 @@ namespace MeloMetrics.Models{
 
         public MongoCursor<Activity> getMyActivityCollectionByDateAsc(string id_user, string searchString)
         {
-            var t = Database.GetCollection<Activity>("Activity").Find(
-                Query.And(
-                    Query.EQ("id_user", id_user),
-                    Query.Matches("nombre", searchString)
-                   )
-                  ).SetSortOrder(SortBy.Ascending("timestamp")); ;
+            var t = Database.GetCollection<Activity>("Activity").Find(Query.EQ("id_user", id_user)).SetSortOrder(SortBy.Ascending("timestamp")); ;
             return t;
         }
 
         public MongoCursor<Activity> getMyActivityCollectionByDateDesc(string id_user, string searchString)
         {
-            var t = Database.GetCollection<Activity>("Activity").Find(
-                Query.And(
-                    Query.EQ("id_user", id_user),
-                    Query.Matches("nombre", searchString)
-                  )
-                ).SetSortOrder(SortBy.Descending("timestamp")); ;
+            var t = Database.GetCollection<Activity>("Activity").Find(Query.EQ("id_user", id_user)).SetSortOrder(SortBy.Descending("timestamp")); ;
             return t;
         }
 

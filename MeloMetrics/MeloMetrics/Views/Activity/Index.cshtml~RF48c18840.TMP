@@ -56,10 +56,10 @@
                    Propietario
                 </th>
                 <th>
-                    @Html.ActionLink("Creado", "Index", new { sortOrder = ViewBag.DateSortParm, searchStringAux = ViewBag.searchString })
+                    @Html.ActionLink("Creado", "Index", new { sortOrder = ViewBag.DateSortParm})
                 </th>
                 <th>
-                    @Html.ActionLink("Nombre", "Index", new { sortOrder = ViewBag.NameSortParm, searchStringAux = ViewBag.searchString })
+                    @Html.ActionLink("Nombre", "Index", new { sortOrder = ViewBag.NameSortParm, searchString = ViewBag.searchString })
                 </th>
                 <th>Acciones</th>
             </tr>
