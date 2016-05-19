@@ -41,6 +41,31 @@ namespace MeloMetrics.Models{
             return t;
         }
 
+        public MongoCursor<Activity> getMyActivityCollectionByNameAsc(string id_user)
+        {
+            var t = Database.GetCollection<Activity>("Activity").Find(Query.EQ("id_user", id_user)).SetSortOrder(SortBy.Ascending("nombre"));;
+            return t;
+        }
+
+        public MongoCursor<Activity> getMyActivityCollectionByNameDesc(string id_user)
+        {
+            var t = Database.GetCollection<Activity>("Activity").Find(Query.EQ("id_user", id_user)).SetSortOrder(SortBy.Descending("nombre")); ;
+            return t;
+        }
+
+        public MongoCursor<Activity> getMyActivityCollectionByDateAsc(string id_user)
+        {
+            var t = Database.GetCollection<Activity>("Activity").Find(Query.EQ("id_user", id_user)).SetSortOrder(SortBy.Ascending("timestamp")); ;
+            return t;
+        }
+
+        public MongoCursor<Activity> getMyActivityCollectionByDateDesc(string id_user)
+        {
+            var t = Database.GetCollection<Activity>("Activity").Find(Query.EQ("id_user", id_user)).SetSortOrder(SortBy.Descending("timestamp")); ;
+            return t;
+        }
+
+
         public MongoCursor<ActivityRecord> getMyActivitysRecordsCollection(string id_activity)
         {
             var t = Database.GetCollection<ActivityRecord>("ActivityRecord").Find(Query.EQ("id_activity", id_activity));
@@ -111,6 +136,5 @@ namespace MeloMetrics.Models{
             return id_activity;
         }
 
-       
     }
 }

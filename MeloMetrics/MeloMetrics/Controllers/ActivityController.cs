@@ -17,8 +17,9 @@ namespace MeloMetrics.Controllers
         public ActionResult Index(string sortOrder)
         {
 
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
+            ViewBag.NameSortParm =  sortOrder == "name" ? "name_desc" : "name";
 
             string id_user = "0";
             MongoCursor<Activity> r;
@@ -26,26 +27,20 @@ namespace MeloMetrics.Controllers
             switch (sortOrder)
             {
                 case "name":
-                     r = MeloMetricsDB.getMeloMetricsDB().getMyActivityCollection(id_user);
+                     r = MeloMetricsDB.getMeloMetricsDB().getMyActivityCollectionByNameAsc(id_user);
                     break;
                 case "name_desc":
-                    r = MeloMetricsDB.getMeloMetricsDB().getMyActivityCollection(id_user);
+                    r = MeloMetricsDB.getMeloMetricsDB().getMyActivityCollectionByNameDesc(id_user);
                     break;
-                case "Date":
-                    r = MeloMetricsDB.getMeloMetricsDB().getMyActivityCollection(id_user);
+                case "date":
+                    r = MeloMetricsDB.getMeloMetricsDB().getMyActivityCollectionByDateAsc(id_user);
                     break;
                 case "date_desc":
-                    r =MeloMetricsDB.getMeloMetricsDB().getMyActivityCollection(id_user);
-                    break;
-                case "identificador"
-                     r =MeloMetricsDB.getMeloMetricsDB().getMyActivityCollection(id_user);
-                    break;
-                case "identificador_desc"
-                     r =MeloMetricsDB.getMeloMetricsDB().getMyActivityCollection(id_user);
+                    r =MeloMetricsDB.getMeloMetricsDB().getMyActivityCollectionByDateDesc(id_user);
                     break;
                 default:
-                    r = MeloMetricsDB.getMeloMetricsDB().getMyActivityCollection(id_user);
-                    break;
+                     r = MeloMetricsDB.getMeloMetricsDB().getMyActivityCollectionByNameAsc(id_user);
+                   break;
             }
 
             
