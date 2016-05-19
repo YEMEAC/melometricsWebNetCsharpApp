@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using PagedList;
 using MongoDB.Driver;
 
+
 namespace MeloMetrics.Controllers
 {
     public class ActivityController : Controller
@@ -14,10 +15,10 @@ namespace MeloMetrics.Controllers
 
         // GET: Activity
         //[ValidateAntiForgeryToken]
-        public ActionResult Index(string sortOrder, string searchString, string searchStringAux)
+        public ViewResult Index(string sortOrder, string searchString, string searchStringAux, string currentFilter, int? page)
         {
 
-
+            ViewBag.CurrentSort = sortOrder;
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
             ViewBag.NameSortParm =  sortOrder == "name" ? "name_desc" : "name";
 
@@ -38,6 +39,17 @@ namespace MeloMetrics.Controllers
             {
                 ViewBag.searchString = searchString;
             }
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
            
          
             string id_user = "0";
@@ -62,8 +74,9 @@ namespace MeloMetrics.Controllers
                    break;
             }
 
-            
-            return View(r);
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(r.ToPagedList(pageNumber, pageSize));
 
         }
 

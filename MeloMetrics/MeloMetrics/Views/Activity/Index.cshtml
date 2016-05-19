@@ -1,15 +1,14 @@
-﻿@model IEnumerable<MeloMetrics.Models.Activity>
+﻿@model PagedList.IPagedList<MeloMetrics.Models.Activity>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @using Microsoft.AspNet.Identity
 @{
-    //ViewBag.Title = "Activities";
+    ViewBag.Title = "Activities";
     //Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
-
-@if (Request.IsAuthenticated)
-{
 
 
 
@@ -28,16 +27,16 @@
     </div>
     }
     
-    using (Html.BeginForm())
+    @using (Html.BeginForm("Index", "Activity", FormMethod.Get))
     {
         <p>
-            Find by name: @Html.TextBox("SearchString")
+            Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
             <input type="submit" value="Search" />
         </p>
     }
 
 
-    using (Html.BeginForm())
+    @using (Html.BeginForm())
     {
 
         @Html.AntiForgeryToken()
@@ -56,10 +55,10 @@
                    Propietario
                 </th>
                 <th>
-                    @Html.ActionLink("Creado", "Index", new { sortOrder = ViewBag.DateSortParm, searchStringAux = ViewBag.searchString })
+                    @Html.ActionLink("Creado", "Index", new { sortOrder = ViewBag.DateSortParm, searchStringAux = ViewBag.searchString, currentFilter=ViewBag.CurrentFilter  })
                 </th>
                 <th>
-                    @Html.ActionLink("Nombre", "Index", new { sortOrder = ViewBag.NameSortParm, searchStringAux = ViewBag.searchString })
+                    @Html.ActionLink("Nombre", "Index", new { sortOrder = ViewBag.NameSortParm, searchStringAux = ViewBag.searchString, currentFilter=ViewBag.CurrentFilter})
                 </th>
                 <th>Acciones</th>
             </tr>
@@ -90,10 +89,10 @@
             }
 
 </table>
+    <br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
     }
-}
-else
-{
-
-
-}
