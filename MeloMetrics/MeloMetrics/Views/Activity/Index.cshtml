@@ -12,7 +12,7 @@
 
 
 
-    using (Html.BeginForm("Index", "FitFileManager", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("Index", "FitFileManager", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.Partial("Partial/_SummaryPanel")
 
@@ -36,10 +36,6 @@
     }
 
 
-    @using (Html.BeginForm())
-    {
-
-        @Html.AntiForgeryToken()
 
 
         <p>
@@ -55,10 +51,10 @@
                    Propietario
                 </th>
                 <th>
-                    @Html.ActionLink("Creado", "Index", new { sortOrder = ViewBag.DateSortParm, searchStringAux = ViewBag.searchString, currentFilter=ViewBag.CurrentFilter  })
+                    @Html.ActionLink("Creado", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter=ViewBag.CurrentFilter  })
                 </th>
                 <th>
-                    @Html.ActionLink("Nombre", "Index", new { sortOrder = ViewBag.NameSortParm, searchStringAux = ViewBag.searchString, currentFilter=ViewBag.CurrentFilter})
+                    @Html.ActionLink("Nombre", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter=ViewBag.CurrentFilter})
                 </th>
                 <th>Acciones</th>
             </tr>
@@ -89,10 +85,10 @@
             }
 
 </table>
-    <br />
+<br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 
-    }
+    

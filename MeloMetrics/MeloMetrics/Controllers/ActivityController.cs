@@ -15,30 +15,13 @@ namespace MeloMetrics.Controllers
 
         // GET: Activity
         //[ValidateAntiForgeryToken]
-        public ViewResult Index(string sortOrder, string searchString, string searchStringAux, string currentFilter, int? page)
+        public ViewResult Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
 
             ViewBag.CurrentSort = sortOrder;
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
             ViewBag.NameSortParm =  sortOrder == "name" ? "name_desc" : "name";
 
-
-            if (searchStringAux != null && searchString == null)
-            {
-                ViewBag.searchString = searchStringAux;
-            }
-            else if (searchString != null && searchStringAux == null)
-            {
-                ViewBag.searchString = searchString;
-            }
-            else if (searchString == null && searchStringAux == null)
-            {
-                ViewBag.searchString = "";
-            }
-            else //ninguna de las dos es null prioridad a form
-            {
-                ViewBag.searchString = searchString;
-            }
 
             if (searchString != null)
             {
@@ -48,8 +31,15 @@ namespace MeloMetrics.Controllers
             {
                 searchString = currentFilter;
             }
+            
 
             ViewBag.CurrentFilter = searchString;
+
+            String aux = "";
+            if (searchString != null)
+            {
+                aux = searchString;
+            }
            
          
             string id_user = "0";
@@ -58,19 +48,19 @@ namespace MeloMetrics.Controllers
             switch (sortOrder)
             {
                 case "name":
-                    r = MeloMetricsDB.getMeloMetricsDB().getMyActivityCollectionByNameAsc(id_user, ViewBag.searchString);
+                    r = MeloMetricsDB.getMeloMetricsDB().getMyActivityCollectionByNameAsc(id_user, aux);
                     break;
                 case "name_desc":
-                    r = MeloMetricsDB.getMeloMetricsDB().getMyActivityCollectionByNameDesc(id_user, ViewBag.searchString);
+                    r = MeloMetricsDB.getMeloMetricsDB().getMyActivityCollectionByNameDesc(id_user, aux);
                     break;
                 case "date":
-                    r = MeloMetricsDB.getMeloMetricsDB().getMyActivityCollectionByDateAsc(id_user, ViewBag.searchString);
+                    r = MeloMetricsDB.getMeloMetricsDB().getMyActivityCollectionByDateAsc(id_user, aux);
                     break;
                 case "date_desc":
-                    r = MeloMetricsDB.getMeloMetricsDB().getMyActivityCollectionByDateDesc(id_user, ViewBag.searchString);
+                    r = MeloMetricsDB.getMeloMetricsDB().getMyActivityCollectionByDateDesc(id_user, aux);
                     break;
                 default:
-                    r = MeloMetricsDB.getMeloMetricsDB().getMyActivityCollectionByNameAsc(id_user, ViewBag.searchString);
+                    r = MeloMetricsDB.getMeloMetricsDB().getMyActivityCollectionByDateAsc(id_user, aux);
                    break;
             }
 
