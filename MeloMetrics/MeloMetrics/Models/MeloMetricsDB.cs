@@ -32,11 +32,7 @@ namespace MeloMetrics.Models{
             return meloMetricsDB;
         }
 
-        public MongoCursor<Activity> getMyActivityCollection(string id_user)
-        {
-            var t = Database.GetCollection<Activity>("Activity").Find(Query.EQ("id_user", id_user));
-            return t;
-        }
+
 
         public MongoCursor<Activity> getMyActivityCollectionByNameAsc(string id_user, string searchString)
         {
@@ -82,14 +78,10 @@ namespace MeloMetrics.Models{
                 ).SetSortOrder(SortBy.Descending("timestamp")); ;
             return t;
         }
+       
 
-
-        public MongoCursor<ActivityRecord> getMyActivitysRecordsCollection(string id_activity)
-        {
-            var t = Database.GetCollection<ActivityRecord>("ActivityRecord").Find(Query.EQ("id_activity", id_activity));
-            return t;
-        }
-
+       
+        //INSERT
         public void insertActivityAndRecords(List<string> datos, string id_user, string nombre, string timestamp)
         {
             string id_activity = getActivityId(datos[1]);
@@ -103,14 +95,14 @@ namespace MeloMetrics.Models{
 
             for (int i = 0; i < datos.Count; i += 12)
             {
-                var record = createDocumentRecord(datos, i, id_activity);
+                var record = createActivityRecordDocument(datos, i, id_activity);
                 ActivityRecordCollection.Insert(record);
             }
         }
 
 
-        //privates
-
+       
+        //PRIVATES
         //revisar xk estos dos deverian ser solo metodos no propieaddes
         //hacer que solo se le pasa el record o el activity y lo meta directamente
         private MongoCollection<Activity> ActivityCollection
@@ -132,7 +124,7 @@ namespace MeloMetrics.Models{
         }
 
 
-        private BsonDocument createDocumentRecord(List<string> datos, int i, string id_activity)
+        private BsonDocument createActivityRecordDocument(List<string> datos, int i, string id_activity)
         {
             var document = new BsonDocument{
                         {"id_activity", id_activity},
@@ -152,6 +144,20 @@ namespace MeloMetrics.Models{
             string t2 = (Math.Ceiling(((DateTime.Parse(timestamp)- new DateTime(1970, 1, 1)).TotalSeconds))).ToString();
             string id_activity = string.Concat(t1,t2);
             return id_activity;
+        }
+
+
+        //OTHERS
+        public MongoCursor<Activity> getMyActivityCollection(string id_user)
+        {
+            var t = Database.GetCollection<Activity>("Activity").Find(Query.EQ("id_user", id_user));
+            return t;
+        }
+
+        public MongoCursor<ActivityRecord> getMyActivitysRecordsCollection(string id_activity)
+        {
+            var t = Database.GetCollection<ActivityRecord>("ActivityRecord").Find(Query.EQ("id_activity", id_activity));
+            return t;
         }
 
     }

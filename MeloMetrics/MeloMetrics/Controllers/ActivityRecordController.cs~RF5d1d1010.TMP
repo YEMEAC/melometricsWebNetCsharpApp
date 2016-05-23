@@ -20,16 +20,50 @@ namespace MeloMetrics.Controllers
      
         // GET: ActivityRecord
         //[ValidateAntiForgeryToken]
-        public ActionResult Index(string id_activity, int? page)
+        public ActionResult Index(string id_activity,string sortOrder, string searchString, string currentFilter, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
+
 
             if (id_activity != null)
             {
                 ViewBag.IdActivity = id_activity;
             }
 
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
 
-            MongoCursor<ActivityRecord> r = MeloMetricsDB.getMeloMetricsDB().getMyActivitysRecordsCollection(id_activity);
+
+            ViewBag.CurrentFilter = searchString;
+            String aux = "";
+            if (searchString != null)
+            {
+                aux = searchString;
+            }
+
+
+            MongoCursor<ActivityRecord> r;
+
+            switch (sortOrder)
+            {
+
+                case "Date":
+                    r = MeloMetricsDB.getMeloMetricsDB().getMyActivitysRecordsCollectionByDateAsc(id_activity);
+                    break;
+                case "name_desc":
+                    r = MeloMetricsDB.getMeloMetricsDB().getMyActivitysRecordsCollectionByDateDesc(id_activity);
+                    break;
+                default:
+                    r = MeloMetricsDB.getMeloMetricsDB().getMyActivitysRecordsCollectionByDateAsc(id_activity);
+                    break;
+            }
 
             int pageSize = 3;
             int pageNumber = (page ?? 1);

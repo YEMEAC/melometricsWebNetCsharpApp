@@ -1,7 +1,10 @@
-﻿@model IEnumerable<MeloMetrics.Models.ActivityRecord>
+﻿@model PagedList.IPagedList<MeloMetrics.Models.ActivityRecord>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
+@using Microsoft.AspNet.Identity
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Activity Record";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -19,25 +22,22 @@
         </tr>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.id_activity)
+                Momento
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.timestamp)
+                Latitud
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.position_lat)
+                Longitud
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.position_long)
+               Distancia 
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.distance)
+                Velocidad
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.speed)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.heart_rate)
+                Ritmo Cardiaco
             </th>
             <th></th>
         </tr>
@@ -45,9 +45,6 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.id_activity)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.timestamp)
                 </td>
@@ -75,4 +72,7 @@
         }
 
     </table>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, id_activity = ViewBag.IdActivity }))
 </div>
