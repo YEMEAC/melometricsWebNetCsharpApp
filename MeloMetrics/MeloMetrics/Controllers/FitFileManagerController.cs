@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-
+//limpiar obran metodos
 namespace MeloMetrics.Controllers
 {
     public class FitFileManagerController : Controller
@@ -113,5 +113,22 @@ namespace MeloMetrics.Controllers
                 return View();
             }
         }
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            Exception ex = filterContext.Exception;
+            filterContext.ExceptionHandled = true;
+
+            var model = new HandleErrorInfo(filterContext.Exception, "FitFileManageController", "Index");
+
+            filterContext.Result = new ViewResult()
+            {
+                ViewName = "Error",
+                ViewData = new ViewDataDictionary(model)
+            };
+
+        }
     }
+
+
 }

@@ -30,12 +30,30 @@ namespace MeloMetrics.Controllers
 
 
             MongoCursor<ActivityRecord> r = MeloMetricsDB.getMeloMetricsDB().getMyActivitysRecordsCollection(id_activity);
+            if (r.Size() == 0)
+            {
+                throw new Exception("No results");
+            }
 
             int pageSize = 3;
             int pageNumber = (page ?? 1);
             return View(r.ToPagedList(pageNumber, pageSize));
         }
 
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            Exception ex = filterContext.Exception;
+            filterContext.ExceptionHandled = true;
+
+            var model = new HandleErrorInfo(filterContext.Exception, "ActivityRecordController", "Index");
+
+            filterContext.Result = new ViewResult()
+            {
+                ViewName = "Error",
+                ViewData = new ViewDataDictionary(model)
+            };
+
+        }
 
         // GET: ActivityRecord
         /*
