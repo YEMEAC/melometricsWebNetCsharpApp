@@ -30,15 +30,50 @@ namespace MeloMetrics.Controllers
 
 
             MongoCursor<ActivityRecord> r = MeloMetricsDB.getMeloMetricsDB().getMyActivitysRecordsCollection(id_activity);
-            if (r.Size() == 0)
-            {
-                throw new Exception("No results");
-            }
+            if (r.Size() == 0){throw new Exception("No results");}
+            calculaMetricas(r);
 
             int pageSize = 3;
             int pageNumber = (page ?? 1);
+
             return View(r.ToPagedList(pageNumber, pageSize));
         }
+
+        private void calculaMetricas(MongoCursor<ActivityRecord> r)
+        {
+            List<ActivityRecord> aux = r.ToList<ActivityRecord>();
+            ViewBag.date = aux[0].timestamp;
+            ViewBag.count = aux.Count;
+            ViewBag.distance = aux[aux.Count - 1].distance;
+            ViewBag.duration = (DateTime.Parse(aux[aux.Count - 1].timestamp) - DateTime.Parse(aux[0].timestamp)).Minutes;
+
+            vo2maxSpeedTest(aux);
+            oneHalfMileRunTest(aux);
+            OneMileWalkTest(aux);
+           
+        }
+
+        private void vo2maxSpeedTest(List<ActivityRecord> aux)
+        {
+            var duration = ViewBag.duration = (DateTime.Parse(aux[aux.Count - 1].timestamp) - DateTime.Parse(aux[0].timestamp)).Minutes;
+            if (duration >= 12)
+            {
+
+            }
+        }
+
+
+         private void oneHalfMileRunTest(List<ActivityRecord> aux)
+         {
+            
+
+        }
+
+         private void OneMileWalkTest(List<ActivityRecord> aux)
+        {
+            
+        }
+
 
         protected override void OnException(ExceptionContext filterContext)
         {
