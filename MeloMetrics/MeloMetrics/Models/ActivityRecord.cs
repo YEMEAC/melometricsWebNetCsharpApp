@@ -16,12 +16,12 @@ namespace MeloMetrics.Models
 
         //public string nombre { get; set; }
         public string id_activity { get; set; }
-        public string timestamp { get; set; }
-        public string position_lat { get; set; }
-        public string position_long { get; set; }
-        public string distance { get; set; }
-        public string speed { get; set; }
-        public string heart_rate { get; set; }
+        public DateTime timestamp { get; set; }
+        public int position_lat { get; set; }
+        public int position_long { get; set; }
+        public float distance { get; set; }
+        public float speed { get; set; }
+        public int heart_rate { get; set; }
        
        
     }

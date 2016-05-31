@@ -11,12 +11,11 @@ namespace MeloMetrics.Models
     {
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-        public string id_activity { get; set; } //convinacion timestamp formato epoch momento guardado+ timestamp primer registro
 
-        public string id_user { get; set; }
-        public string timestamp { get; set; }
+        public int id_user { get; set; }
+        public DateTime timestamp { get; set; }
         public string nombre { get; set; }
-        //List<ActivityRecord> records { get; set; }
-
+        //convinacion timestamp formato epoch momento guardado+ timestamp primer registro
+        //no meto aki un array de records por eficiencia y no tener que cargarlo ver diario que explico bien porque diria
     }
 }

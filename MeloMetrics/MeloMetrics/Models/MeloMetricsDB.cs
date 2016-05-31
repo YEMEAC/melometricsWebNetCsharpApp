@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Threading.Tasks;
 using MongoDB.Driver.Builders;
+using System.Globalization;
 
 
 //singleton
@@ -34,7 +35,7 @@ namespace MeloMetrics.Models{
 
 
 
-        public MongoCursor<Activity> getMyActivityCollectionByNameAsc(string id_user, string searchString)
+        public MongoCursor<Activity> getMyActivityCollectionByNameAsc(int id_user, string searchString)
         {
             
             var t = Database.GetCollection<Activity>("Activity").Find(
@@ -46,7 +47,7 @@ namespace MeloMetrics.Models{
             return t;
         }
 
-        public MongoCursor<Activity> getMyActivityCollectionByNameDesc(string id_user, string searchString)
+        public MongoCursor<Activity> getMyActivityCollectionByNameDesc(int id_user, string searchString)
         {
             var t = Database.GetCollection<Activity>("Activity").Find(
                 Query.And(
@@ -57,7 +58,7 @@ namespace MeloMetrics.Models{
             return t;
         }
 
-        public MongoCursor<Activity> getMyActivityCollectionByDateAsc(string id_user, string searchString)
+        public MongoCursor<Activity> getMyActivityCollectionByDateAsc(int id_user, string searchString)
         {
             var t = Database.GetCollection<Activity>("Activity").Find(
                 Query.And(
@@ -68,7 +69,7 @@ namespace MeloMetrics.Models{
             return t;
         }
 
-        public MongoCursor<Activity> getMyActivityCollectionByDateDesc(string id_user, string searchString)
+        public MongoCursor<Activity> getMyActivityCollectionByDateDesc(int id_user, string searchString)
         {
             var t = Database.GetCollection<Activity>("Activity").Find(
                 Query.And(
@@ -78,87 +79,68 @@ namespace MeloMetrics.Models{
                 ).SetSortOrder(SortBy.Descending("timestamp")); ;
             return t;
         }
-       
 
-       
-        //INSERT
-        public void insertActivityAndRecords(List<string> datos, string id_user, string nombre, string timestamp)
-        {
-            string id_activity = getActivityId(datos[1]);
-            var activity = new BsonDocument{
-                    {"id_user", id_user},
-                    {"id_activity", id_activity},
-                    {"nombre", nombre},
-                    {"timestamp", timestamp}
-            };
-            ActivityCollection.Insert(activity);
-
-            for (int i = 0; i < datos.Count; i += 12)
-            {
-                var record = createActivityRecordDocument(datos, i, id_activity);
-                ActivityRecordCollection.Insert(record);
-            }
-        }
-
-
-       
-        //PRIVATES
-        //revisar xk estos dos deverian ser solo metodos no propieaddes
-        //hacer que solo se le pasa el record o el activity y lo meta directamente
-        private MongoCollection<Activity> ActivityCollection
-        {
-            get
-            {
-                var t = Database.GetCollection<Activity>("Activity");
-                return t;
-            }
-        }
-
-        private MongoCollection<Activity> ActivityRecordCollection
-        {
-            get
-            {
-                var t = Database.GetCollection<Activity>("ActivityRecord");
-                return t;
-            }
-        }
-
-
-        private BsonDocument createActivityRecordDocument(List<string> datos, int i, string id_activity)
-        {
-            var document = new BsonDocument{
-                        {"id_activity", id_activity},
-                        {datos[i], datos[i+1]}, 
-                        {datos[i+2], datos[i+3]}, 
-                        {datos[i+4], datos[i+5]}, 
-                        {datos[i+6], datos[i+7]}, 
-                        {datos[i+8], datos[i+9]}, 
-                        {datos[i+10], datos[i+11]}
-                };
-            return document;
-        }
-
-        private string getActivityId(string timestamp){
-            //convert to epoch time uni time
-            string t1 = (Math.Ceiling(((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds))).ToString();
-            string t2 = (Math.Ceiling(((DateTime.Parse(timestamp)- new DateTime(1970, 1, 1)).TotalSeconds))).ToString();
-            string id_activity = string.Concat(t1,t2);
-            return id_activity;
-        }
-
-
-        //OTHERS
-        public MongoCursor<Activity> getMyActivityCollection(string id_user)
-        {
-            var t = Database.GetCollection<Activity>("Activity").Find(Query.EQ("id_user", id_user));
-            return t;
-        }
 
         public MongoCursor<ActivityRecord> getMyActivitysRecordsCollection(string id_activity)
         {
             var t = Database.GetCollection<ActivityRecord>("ActivityRecord").Find(Query.EQ("id_activity", id_activity));
             return t;
         }
+
+       
+        //INSERT
+        public void insertActivityAndRecords(List<string> datos, string id_user, string nombre, string timestamp)
+        {
+            
+            var activityDoc = new BsonDocument{
+                    {"id_user", Int32.Parse(id_user)},
+                    {"nombre", nombre},
+                    {"timestamp", DateTime.Parse(timestamp,CultureInfo.InvariantCulture.NumberFormat)}
+            };
+
+            Database.GetCollection<Activity>("Activity").Insert(activityDoc);
+
+            for (int i = 0; i < datos.Count; i += 12)
+            {
+                
+                var record = createActivityRecordDocument(datos, i, activityDoc.GetElement(0).ToString());
+                Database.GetCollection<Activity>("ActivityRecord").Insert(record);
+            }
+        }
+
+       
+        private object createActivityRecordDocument(List<string> datos, int i, String id_activity)
+        {
+          
+            var document = new BsonDocument{
+                        {"id_activity", id_activity},
+                        {datos[i], DateTime.Parse(datos[i+1],CultureInfo.InvariantCulture.NumberFormat)}, //timestamp
+                        {datos[i+2], Int32.Parse(datos[i+3])}, //latitud
+                        {datos[i+4], Int32.Parse(datos[i+5])}, //longitud
+                        {datos[i+6], float.Parse(datos[i + 7], CultureInfo.InvariantCulture.NumberFormat)}, //distancia
+                        {datos[i+8], float.Parse(datos[i + 9], CultureInfo.InvariantCulture.NumberFormat)},  //velocidad
+                        {datos[i+10], Int32.Parse(datos[i+11])} //hearrate
+                };
+            return document;
+        }
+
+        //OTHERS
+
+      /*  private string getActivityId(string timestamp)
+        {
+            //convert to epoch time uni time ////no meto aki un array de records por eficiencia y no tener que cargarlo ver diario que explico bien porque diria
+            string t1 = (Math.Ceiling(((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds))).ToString();
+            string t2 = (Math.Ceiling(((DateTime.Parse(timestamp) - new DateTime(1970, 1, 1)).TotalSeconds))).ToString();
+            string id_activity = string.Concat(t1, t2);
+            return id_activity;
+        }
+        public MongoCursor<Activity> getMyActivityCollection(string id_user)
+        {
+            var t = Database.GetCollection<Activity>("Activity").Find(Query.EQ("id_user", id_user));
+            return t;
+        }
+
+       */
 
     }
 }

@@ -35,7 +35,7 @@ namespace MeloMetrics.Controllers
                 fileNameIdController.SaveAs(path);
 
                List<String> records = fitFileManager.readFile(path);
-               MeloMetricsDB.getMeloMetricsDB().insertActivityAndRecords(records, id_user, "test1", records[1]);
+               MeloMetricsDB.getMeloMetricsDB().insertActivityAndRecords(records, id_user, fileName, records[1]);
                
             }
             // redirect back to the index action to show the form once again

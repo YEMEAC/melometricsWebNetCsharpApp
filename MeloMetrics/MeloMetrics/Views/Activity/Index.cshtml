@@ -64,7 +64,7 @@
                 <tbody>
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.id_activity)
+                            @Html.DisplayFor(modelItem => item.Id)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.id_user)
@@ -73,7 +73,7 @@
                             @Html.DisplayFor(modelItem => item.timestamp)
                         </td>
                         <td>
-                            <a href="@Url.Action("Index", "ActivityRecord", new { item.id_activity})">@Html.DisplayFor(modelItem => item.nombre)</a>
+                            <a href="@Url.Action("Index", "ActivityRecord", new { item.Id })">@Html.DisplayFor(modelItem => item.nombre)</a>
                         </td>
                         <td>
                             @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

@@ -45,7 +45,7 @@ namespace MeloMetrics.Controllers
             ViewBag.date = aux[0].timestamp;
             ViewBag.count = aux.Count;
             ViewBag.distance = aux[aux.Count - 1].distance;
-            ViewBag.duration = (DateTime.Parse(aux[aux.Count - 1].timestamp) - DateTime.Parse(aux[0].timestamp)).Minutes;
+            ViewBag.duration = (aux[aux.Count - 1].timestamp - aux[0].timestamp).Minutes;
 
             vo2maxSpeedTest(aux);
             oneHalfMileRunTest(aux);
@@ -53,12 +53,42 @@ namespace MeloMetrics.Controllers
            
         }
 
-        private void vo2maxSpeedTest(List<ActivityRecord> aux)
+        private void vo2maxSpeedTest(List<ActivityRecord> registros)
         {
-            var duration = ViewBag.duration = (DateTime.Parse(aux[aux.Count - 1].timestamp) - DateTime.Parse(aux[0].timestamp)).Minutes;
+            var duration = ViewBag.duration = (registros[registros.Count - 1].timestamp- registros[0].timestamp).Minutes;
+            
+            //la duracion minima es de 12 minutos de actividad para el test
             if (duration >= 12)
             {
+                Boolean limite = false;
+                int registroInicioTest = -1;
 
+                //buscar a partir de donde han pasado 12 minutos los anteriores se no tienen en cuenta
+                for (int i = 0; i < registros.Count-1 & !limite; ++i)
+                {
+                   var diferencia = (registros[i+1].timestamp - registros[i].timestamp).Minutes;
+                   if (diferencia >= 12) { registroInicioTest = i; }
+                }
+
+                var contadorVo2maxSpeedMuestras = registros.Count;
+                var acumuladorVo2maxSpeed = 0;
+                var maxHeartRate = 186.0d;
+                var restingHeartRate = 56.0d;
+                
+                //registros del test
+                for (int i = registroInicioTest; i < registros.Count; ++i)
+                {
+                    var heartRateReserve = maxHeartRate - restingHeartRate;
+                    //aux=current runnig heart rate as a percentage of hr reserve
+                    //var aux = (registros[i].heart_rate - restingHeartRate) / heartRateReserve;
+
+                    //var velocidad = registros[i].speed * 2.23694; // m/s to mph
+
+                    //var estimacionVo2maxSpeed =  velocidad/aux;
+
+                    //acumuladorVo2maxSpeed += estimacionVo2maxSpeed;   
+                }
+                var media = acumuladorVo2maxSpeed / contadorVo2maxSpeedMuestras;
             }
         }
 
@@ -95,9 +125,9 @@ namespace MeloMetrics.Controllers
         public ActionResult Index()
         {
             long id_user = 0;
-            //List<String>  aux = fitFileManager.readFile();
+            //List<String>  registros = fitFileManager.readFile();
           
-            //meloMetricsDB.insertDocumentsOneMileWalkTes(aux, id_user);
+            //meloMetricsDB.insertDocumentsOneMileWalkTes(registros, id_user);
 
             //var oneMileWalktest = meloMetricsDB.getMyOneMileWalkTestCollection(id_user);
             //var oneMileWalktest = meloMetricsDB.getMyActiVYrECOR(id_user, "14627228151429631557");

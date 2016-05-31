@@ -42,7 +42,7 @@ namespace MeloMetrics.Controllers
             }
            
          
-            string id_user = "0";
+            int id_user = 0;
             MongoCursor<Activity> r;
 
             switch (sortOrder)
