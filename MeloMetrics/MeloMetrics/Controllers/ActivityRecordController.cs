@@ -53,45 +53,48 @@ namespace MeloMetrics.Controllers
            
         }
 
-        private void vo2maxSpeedTest(List<ActivityRecord> registros)
+       
+
+        private void OneMileWalkTest(List<ActivityRecord> registros)
         {
-            var duration =  (registros[registros.Count - 1].timestamp- registros[0].timestamp).Minutes;
-            
-            //la duracion minima es de 12 minutos de actividad para el test
-            if (duration >= 12)
+
+            //1 milla = 1,60934 km = 1609,34 m
+            //1,5 milla = 2,41402 km = 2414,02 m
+            var distancia = registros[registros.Count() - 1].distance / 1000;  // m to km
+
+            if (distancia >= 1.61d)
             {
-
-                int registroInicioTest = -1;
-
-                //buscar a partir de donde han pasado 12 minutos los anteriores se no tienen en cuenta
-                for (int i = 0; i < registros.Count  && registroInicioTest==-1; ++i)
+                var registroInicioTest = -1;
+                for (int i = 0; i < registros.Count && registroInicioTest == -1; ++i)
                 {
-                   var diferencia = (registros[i].timestamp - registros[0].timestamp).Minutes;
-                   if (diferencia >= 12) { registroInicioTest = i; }
+                    var distanciaAux = registros[i].distance / 1000;   // metres to km
+                    if (distanciaAux >= 1.61d)
+                    {
+                        registroInicioTest = i;
+                    }   //distancia recorrida necesaria
                 }
 
-                var contadorVo2maxSpeedMuestras = registros.Count;
-                var acumuladorVo2maxSpeed = 0.0d;
-                var maxHeartRate = 186.0d;
-                var restingHeartRate = 56.0d;
-                var media = 0.0d;
-                
-                //registros del test
-                for (int i = registroInicioTest; i < registros.Count; ++i)
+                if (registroInicioTest != -1)
                 {
-                    var heartRateReserve = maxHeartRate - restingHeartRate;
-                    //aux=current runnig heart rate as a percentage of hr reserve
-                    var aux = (registros[i].heart_rate - restingHeartRate) / heartRateReserve;
+                    //tiempo en completar la distancia
+                    var minutos = (registros[registroInicioTest].timestamp - registros[0].timestamp).TotalMinutes;
 
-                    var velocidad = registros[i].speed * 2.23694; // m/s to mph
+                    var genero = 0;     // male female
+                    var peso = 149.600006d;    //pounds  1g = 0.0022pounds
+                    var edad = 36;
 
-                    var estimacionVo2maxSpeed =  velocidad/aux;
 
-                    acumuladorVo2maxSpeed += estimacionVo2maxSpeed;   
+                    var aux = 132.853 - 0.0769 * peso - 0.3877 * edad + 6.315 * genero - 3.2649 * minutos - 0.1565 * registros[registroInicioTest].heart_rate;
+                    ViewBag.OneMileWalkTest = aux;
                 }
-                media = acumuladorVo2maxSpeed / (contadorVo2maxSpeedMuestras - registroInicioTest -1);
-
-                 ViewBag.vo2maxspeed = media;
+                else
+                {
+                    ViewBag.OneMileWalkTest = "problema encontrado el punto de corte";
+                }
+            }
+            else
+            {
+                ViewBag.OneMileWalkTest = "distancia insuficiente";
             }
         }
 
@@ -99,36 +102,92 @@ namespace MeloMetrics.Controllers
          private void oneHalfMileRunTest(List<ActivityRecord> registros)
          {
 
-             var registroInicioTest = -1;
-             for (int i = 0; i < registros.Count && registroInicioTest == -1; ++i)
-             {
-                 var distanciaAux = registros[i].distance * 2.23694;  // m/s tp mph
-                 if (distanciaAux >= 1.5) { registroInicioTest = i; }   //distancia recorrida necesaria
-             }
+             //1 milla = 1,60934 km = 1609,34 m
+             //1,5 milla = 2,41402 km = 2414,02 m
+             var distancia = registros[registros.Count()-1].distance / 1000;  // m to km
 
-             if (registroInicioTest != -1)
+             if (distancia >= 2.42d) //distancia recorrida necesaria
              {
+                 var registroInicioTest = -1;
+                 for (int i = 0; i < registros.Count && registroInicioTest == -1; ++i)
+                 {
+                     var distanciaAux = registros[i].distance / 1000;   // metres to km
+                     if (distanciaAux >= 2.42d) { 
+                         registroInicioTest = i; 
+                     }   
+                 }
 
+                 if (registroInicioTest != -1)
+                 {
+                     var a = 483.0d;
+                     var b = 3.5d;
+                     //tiempo en completar la distancia
+                     var minutos = (registros[registroInicioTest].timestamp - registros[0].timestamp).TotalMinutes;
+                     var c = (a / minutos) + b;
+                     ViewBag.oneHalfMileRunTest = c;
+                 }
+                 else
+                 {
+                     ViewBag.oneHalfMileRunTest = "problema encontrado el punto de corte";
+                 }
              }
-            
+             else
+             {
+                 ViewBag.oneHalfMileRunTest  = "distancia insuficiente";
+             }
+             
         }
 
-         private void OneMileWalkTest(List<ActivityRecord> registros)
-        {
+         private void vo2maxSpeedTest(List<ActivityRecord> registros)
+         {
+             var duration = (registros[registros.Count - 1].timestamp - registros[0].timestamp).Minutes;
 
-                var registroInicioTest = -1;
-                for (int i = 0; i < registros.Count && registroInicioTest == -1; ++i)
-                {
-                    var distanciaAux = registros[i].distance * 2.23694;  // m/s tp mph
-                    if (distanciaAux >= 1) { registroInicioTest = i; }   //distancia recorrida necesaria
-                }
+             //la duracion minima es de 12 minutos de actividad para el test
+             if (duration >= 12)
+             {
 
-                if (registroInicioTest != -1)
-                {
+                 int registroInicioTest = -1;
 
-                }
-        }
+                 //buscar a partir de donde han pasado 12 minutos los anteriores se no tienen en cuenta
+                 for (int i = 0; i < registros.Count && registroInicioTest == -1; ++i)
+                 {
+                     var diferencia = (registros[i].timestamp - registros[0].timestamp).Minutes;
+                     if (diferencia >= 12) { registroInicioTest = i; }
+                 }
 
+          
+                 var acumuladorVo2maxSpeed = 0.0d;
+                 var maxHeartRate = 186.0d;
+                 var restingHeartRate = 56.0d;
+                 var media = 0.0d;
+
+                 //registros del test
+                 for (int i = registroInicioTest; i < registros.Count; ++i)
+                 {
+                     var heartRateReserve = maxHeartRate - restingHeartRate;
+                     //aux=current runnig heart rate as a percentage of hr reserve
+                     var aux = (registros[i].heart_rate - restingHeartRate) / heartRateReserve;
+
+                     var velocidad = registros[i].speed * 2.23694; // m/s to mph
+
+                     var estimacionVo2maxSpeed = velocidad / aux;
+
+                     acumuladorVo2maxSpeed += estimacionVo2maxSpeed;
+
+                     if (i == registroInicioTest)
+                     {
+                         ViewBag.vo2maxspeedDoceMinutos = acumuladorVo2maxSpeed; 
+                         //estimacion al llegar a 12minutos, la otra sera de todo el activity por lo tanto una media
+                     }
+
+                 }
+                 //la estimacion de todo equivale a la continua y es la media de las estimaciones, el numero de estiamciones
+                 //es el total menos las iniciales antes de llegar a los 12 minutos que se descartan
+                 //el -1 es para que el registro justo del momento 12 si se tenga en cuenta
+                 ViewBag.vo2maxspeedActivityCompleto = acumuladorVo2maxSpeed / (registros.Count - (registroInicioTest));
+             }
+         }
+        
 
         protected override void OnException(ExceptionContext filterContext)
         {
