@@ -103,17 +103,18 @@ namespace MeloMetrics.Models{
             for (int i = 0; i < datos.Count; i += 12)
             {
                 
-                var record = createActivityRecordDocument(datos, i, activityDoc.GetElement(0).ToString());
+                var record = createActivityRecordDocument(datos, i, activityDoc.GetElement(0).Value);
                 Database.GetCollection<Activity>("ActivityRecord").Insert(record);
             }
         }
 
+
        
-        private object createActivityRecordDocument(List<string> datos, int i, String id_activity)
+        private object createActivityRecordDocument(List<string> datos, int i, BsonValue id_activity)
         {
           
             var document = new BsonDocument{
-                        {"id_activity", id_activity},
+                        {"id_activity", id_activity.ToString()},
                         {datos[i], DateTime.Parse(datos[i+1],CultureInfo.InvariantCulture.NumberFormat)}, //timestamp
                         {datos[i+2], Int32.Parse(datos[i+3])}, //latitud
                         {datos[i+4], Int32.Parse(datos[i+5])}, //longitud

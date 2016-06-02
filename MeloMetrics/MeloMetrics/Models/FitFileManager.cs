@@ -13,13 +13,13 @@ namespace MeloMetrics.Models
         private ScriptEngine engine;
         private ScriptSource source;
         private ScriptScope scope;
-        private string pathPythonScript = "C:/Users/jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/scripts/meloMetricsFitReader.py";
+        private string pathPythonScript = "C:/Users/ymeloa/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/scripts/meloMetricsFitReader.py";
 
         public FitFileManager()
         {
             engine = Python.CreateEngine();
             //urls donde ir a buscar includes y clases para compilar el script
-            engine.SetSearchPaths(new string[] { "C:/Users/jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/fitparse", "D:/Program Files (x86)/IronPython 2.7/Lib" });
+            engine.SetSearchPaths(new string[] { "C:/Users/ymeloa/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/fitparse", "D:/Program Files (x86)/IronPython 2.7/Lib" });
                
         }
 

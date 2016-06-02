@@ -20,16 +20,16 @@ namespace MeloMetrics.Controllers
      
         // GET: ActivityRecord
         //[ValidateAntiForgeryToken]
-        public ActionResult Index(string id_activity, int? page)
+        public ActionResult Index(string id, int? page)
         {
 
-            if (id_activity != null)
+            if (id != null)
             {
-                ViewBag.IdActivity = id_activity;
+                ViewBag.IdActivity = id;
             }
 
 
-            MongoCursor<ActivityRecord> r = MeloMetricsDB.getMeloMetricsDB().getMyActivitysRecordsCollection(id_activity);
+            MongoCursor<ActivityRecord> r = MeloMetricsDB.getMeloMetricsDB().getMyActivitysRecordsCollection(id);
             if (r.Size() == 0){throw new Exception("No results");}
             calculaMetricas(r);
 
@@ -88,7 +88,7 @@ namespace MeloMetrics.Controllers
 
                     //acumuladorVo2maxSpeed += estimacionVo2maxSpeed;   
                 }
-                var media = acumuladorVo2maxSpeed / contadorVo2maxSpeedMuestras;
+                //var media = acumuladorVo2maxSpeed / contadorVo2maxSpeedMuestras;
             }
         }
 
