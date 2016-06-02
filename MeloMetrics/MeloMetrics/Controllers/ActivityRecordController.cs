@@ -55,7 +55,7 @@ namespace MeloMetrics.Controllers
 
         private void vo2maxSpeedTest(List<ActivityRecord> registros)
         {
-            var duration = ViewBag.duration = (registros[registros.Count - 1].timestamp- registros[0].timestamp).Minutes;
+            var duration =  (registros[registros.Count - 1].timestamp- registros[0].timestamp).Minutes;
             
             //la duracion minima es de 12 minutos de actividad para el test
             if (duration >= 12)
@@ -96,15 +96,37 @@ namespace MeloMetrics.Controllers
         }
 
 
-         private void oneHalfMileRunTest(List<ActivityRecord> aux)
+         private void oneHalfMileRunTest(List<ActivityRecord> registros)
          {
-            
 
+             var registroInicioTest = -1;
+             for (int i = 0; i < registros.Count && registroInicioTest == -1; ++i)
+             {
+                 var distanciaAux = registros[i].distance * 2.23694;  // m/s tp mph
+                 if (distanciaAux >= 1.5) { registroInicioTest = i; }   //distancia recorrida necesaria
+             }
+
+             if (registroInicioTest != -1)
+             {
+
+             }
+            
         }
 
-         private void OneMileWalkTest(List<ActivityRecord> aux)
+         private void OneMileWalkTest(List<ActivityRecord> registros)
         {
-            
+
+                var registroInicioTest = -1;
+                for (int i = 0; i < registros.Count && registroInicioTest == -1; ++i)
+                {
+                    var distanciaAux = registros[i].distance * 2.23694;  // m/s tp mph
+                    if (distanciaAux >= 1) { registroInicioTest = i; }   //distancia recorrida necesaria
+                }
+
+                if (registroInicioTest != -1)
+                {
+
+                }
         }
 
 
