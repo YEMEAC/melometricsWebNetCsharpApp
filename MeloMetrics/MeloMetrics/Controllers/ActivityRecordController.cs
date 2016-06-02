@@ -60,35 +60,38 @@ namespace MeloMetrics.Controllers
             //la duracion minima es de 12 minutos de actividad para el test
             if (duration >= 12)
             {
-                Boolean limite = false;
+
                 int registroInicioTest = -1;
 
                 //buscar a partir de donde han pasado 12 minutos los anteriores se no tienen en cuenta
-                for (int i = 0; i < registros.Count-1 & !limite; ++i)
+                for (int i = 0; i < registros.Count  && registroInicioTest==-1; ++i)
                 {
-                   var diferencia = (registros[i+1].timestamp - registros[i].timestamp).Minutes;
+                   var diferencia = (registros[i].timestamp - registros[0].timestamp).Minutes;
                    if (diferencia >= 12) { registroInicioTest = i; }
                 }
 
                 var contadorVo2maxSpeedMuestras = registros.Count;
-                var acumuladorVo2maxSpeed = 0;
+                var acumuladorVo2maxSpeed = 0.0d;
                 var maxHeartRate = 186.0d;
                 var restingHeartRate = 56.0d;
+                var media = 0.0d;
                 
                 //registros del test
                 for (int i = registroInicioTest; i < registros.Count; ++i)
                 {
                     var heartRateReserve = maxHeartRate - restingHeartRate;
                     //aux=current runnig heart rate as a percentage of hr reserve
-                    //var aux = (registros[i].heart_rate - restingHeartRate) / heartRateReserve;
+                    var aux = (registros[i].heart_rate - restingHeartRate) / heartRateReserve;
 
-                    //var velocidad = registros[i].speed * 2.23694; // m/s to mph
+                    var velocidad = registros[i].speed * 2.23694; // m/s to mph
 
-                    //var estimacionVo2maxSpeed =  velocidad/aux;
+                    var estimacionVo2maxSpeed =  velocidad/aux;
 
-                    //acumuladorVo2maxSpeed += estimacionVo2maxSpeed;   
+                    acumuladorVo2maxSpeed += estimacionVo2maxSpeed;   
                 }
-                //var media = acumuladorVo2maxSpeed / contadorVo2maxSpeedMuestras;
+                media = acumuladorVo2maxSpeed / (contadorVo2maxSpeedMuestras - registroInicioTest -1);
+
+                 ViewBag.vo2maxspeed = media;
             }
         }
 
