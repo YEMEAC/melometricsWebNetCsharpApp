@@ -16,28 +16,33 @@
     {
         @Html.Partial("Partial/_SummaryPanel")
 
-    <div id="containerUploadFile">
+    <div id="containerUploadFile" style="margin-top:30px;">
         <div class="fileUpload btn btn-primary">
-            <span>Upload</span>
+            <span>Archivo</span>
             <input name="fileNameIdController" type="file" class="upload" onchange='$("#upload-file-info").html($(this).val());' />
 
         </div>
-        <span style="width:180px;" class='btn btn-info' id="upload-file-info">&nbsp;</span>
+        <span style="width:160px;" class='btn btn-info' id="upload-file-info">&nbsp;</span>
         <input type="submit" class="btn btn-warning" value="ok">
     </div>
     }
     
-    @using (Html.BeginForm("Index", "Activity", FormMethod.Get))
-    {
-        <p>
-            Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-            <input type="submit" value="Search" />
-        </p>
-    }
+    
 
 
-    <table class="table table-hover">
+    <table class="table table-hover" >
         <thead>
+            <tr>
+                <th>
+                    @using (Html.BeginForm("Index", "Activity", FormMethod.Get))
+                    {
+                        <p style="margin-top:30px; width:500px;">
+                            Buscar por nombre: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                            <input type="submit" value="ok" />
+                        </p>
+                    }
+                </th>
+            </tr>
             <tr>
                 <th>
                     @Html.ActionLink("Creado", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter=ViewBag.CurrentFilter  })

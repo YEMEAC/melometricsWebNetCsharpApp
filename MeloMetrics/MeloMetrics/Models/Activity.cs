@@ -12,7 +12,7 @@ namespace MeloMetrics.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
-        public int id_user { get; set; }
+        public string id_user { get; set; }
         public DateTime timestamp { get; set; }
         public string nombre { get; set; }
         //convinacion timestamp formato epoch momento guardado+ timestamp primer registro

@@ -36,7 +36,7 @@ namespace MeloMetrics.Controllers
 
             calculaMetricas(r);
 
-            int pageSize = 3;
+            int pageSize = 13;
             int pageNumber = (page ?? 1);
 
             try
@@ -59,9 +59,11 @@ namespace MeloMetrics.Controllers
                 ViewBag.distance = aux[aux.Count - 1].distance;
                 ViewBag.duration = (aux[aux.Count - 1].timestamp - aux[0].timestamp).Minutes;
 
-                vo2maxSpeedTest(aux);
-                oneHalfMileRunTest(aux);
                 OneMileWalkTest(aux);
+               
+                oneHalfMileRunTest(aux);
+                vo2maxSpeedTest(aux);
+                
             }
             catch (Exception e)
             {
@@ -95,13 +97,13 @@ namespace MeloMetrics.Controllers
                     //tiempo en completar la distancia
                     var minutos = (registros[registroInicioTest].timestamp - registros[0].timestamp).TotalMinutes;
 
-                    var genero = 0;     // male female
-                    var peso = 149.600006d;    //pounds  1g = 0.0022pounds
+                    var genero = 0;     // 1 male female 0
+                    var peso = 68000 * 0.00220462;    //pounds  1g =0.00220462 pounds
                     var edad = 36;
 
 
                     var aux = 132.853 - 0.0769 * peso - 0.3877 * edad + 6.315 * genero - 3.2649 * minutos - 0.1565 * registros[registroInicioTest].heart_rate;
-                    ViewBag.OneMileWalkTest = aux;
+                    ViewBag.OneMileWalkTest = string.Format("{0:0.00}", aux); 
                 }
                 else
                 {
@@ -140,7 +142,7 @@ namespace MeloMetrics.Controllers
                      //tiempo en completar la distancia
                      var minutos = (registros[registroInicioTest].timestamp - registros[0].timestamp).TotalMinutes;
                      var c = (a / minutos) + b;
-                     ViewBag.oneHalfMileRunTest = c;
+                     ViewBag.oneHalfMileRunTest = string.Format("{0:0.00}", c);
                  }
                  else
                  {
@@ -174,7 +176,7 @@ namespace MeloMetrics.Controllers
           
                  var acumuladorVo2maxSpeed = 0.0d;
                  var maxHeartRate = 186.0d;
-                 var restingHeartRate = 56.0d;
+                 var restingHeartRate =60.0d;
                 
                  //registros del test
                  for (int i = registroInicioTest; i < registros.Count; ++i)
@@ -191,7 +193,7 @@ namespace MeloMetrics.Controllers
 
                      if (i == registroInicioTest)
                      {
-                         ViewBag.vo2maxspeedDoceMinutos = acumuladorVo2maxSpeed; 
+                         ViewBag.vo2maxspeedDoceMinutos = string.Format("{0:0.00}", acumuladorVo2maxSpeed);
                          //estimacion al llegar a 12minutos, la otra sera de todo el activity por lo tanto una media
                      }
 
@@ -199,7 +201,9 @@ namespace MeloMetrics.Controllers
                  //la estimacion de todo equivale a la continua y es la media de las estimaciones, el numero de estiamciones
                  //es el total menos las iniciales antes de llegar a los 12 minutos que se descartan
                  //el -1 es para que el registro justo del momento 12 si se tenga en cuenta
-                 ViewBag.vo2maxspeedActivityCompleto = acumuladorVo2maxSpeed / (registros.Count - (registroInicioTest));
+                 ViewBag.vo2maxspeedActivityCompleto = string.Format("{0:0.00}", acumuladorVo2maxSpeed / (registros.Count - (registroInicioTest)));
+                     
+                     
              }
          }
 

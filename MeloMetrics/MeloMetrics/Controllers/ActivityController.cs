@@ -6,12 +6,13 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using MongoDB.Driver;
-
+using Microsoft.AspNet.Identity;
 
 namespace MeloMetrics.Controllers
 {
     public class ActivityController : Controller
     {
+       
 
         // GET: Activity
         //[ValidateAntiForgeryToken]
@@ -40,9 +41,9 @@ namespace MeloMetrics.Controllers
             {
                 aux = searchString;
             }
-           
-         
-            int id_user = 0;
+
+
+            string id_user = User.Identity.GetUserId();
             MongoCursor<Activity> r;
 
             switch (sortOrder)
@@ -64,7 +65,7 @@ namespace MeloMetrics.Controllers
                    break;
             }
 
-            int pageSize = 3;
+            int pageSize = 13;
             int pageNumber = (page ?? 1);
 
             try

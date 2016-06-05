@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 //limpiar obran metodos
 namespace MeloMetrics.Controllers
@@ -23,7 +24,7 @@ namespace MeloMetrics.Controllers
             {
 
                 //subir archivo al server
-                string id_user = "0";
+                string id_user = User.Identity.GetUserId();
                 var fileName = Path.GetFileName(fileNameIdController.FileName);
                 string path = Path.Combine(Server.MapPath("~/uploads"), fileName);
                 fileNameIdController.SaveAs(path);

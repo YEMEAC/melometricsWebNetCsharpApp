@@ -35,7 +35,7 @@ namespace MeloMetrics.Models{
 
 
 
-        public MongoCursor<Activity> getMyActivityCollectionByNameAsc(int id_user, string searchString)
+        public MongoCursor<Activity> getMyActivityCollectionByNameAsc(string id_user, string searchString)
         {
             
             var t = Database.GetCollection<Activity>("Activity").Find(
@@ -47,7 +47,7 @@ namespace MeloMetrics.Models{
             return t;
         }
 
-        public MongoCursor<Activity> getMyActivityCollectionByNameDesc(int id_user, string searchString)
+        public MongoCursor<Activity> getMyActivityCollectionByNameDesc(string id_user, string searchString)
         {
             var t = Database.GetCollection<Activity>("Activity").Find(
                 Query.And(
@@ -58,7 +58,7 @@ namespace MeloMetrics.Models{
             return t;
         }
 
-        public MongoCursor<Activity> getMyActivityCollectionByDateAsc(int id_user, string searchString)
+        public MongoCursor<Activity> getMyActivityCollectionByDateAsc(string id_user, string searchString)
         {
             var t = Database.GetCollection<Activity>("Activity").Find(
                 Query.And(
@@ -69,7 +69,7 @@ namespace MeloMetrics.Models{
             return t;
         }
 
-        public MongoCursor<Activity> getMyActivityCollectionByDateDesc(int id_user, string searchString)
+        public MongoCursor<Activity> getMyActivityCollectionByDateDesc(string id_user, string searchString)
         {
             var t = Database.GetCollection<Activity>("Activity").Find(
                 Query.And(
@@ -93,7 +93,7 @@ namespace MeloMetrics.Models{
         {
             
             var activityDoc = new BsonDocument{
-                    {"id_user", Int32.Parse(id_user)},
+                    {"id_user", id_user},
                     {"nombre", nombre},
                     {"timestamp", DateTime.Parse(timestamp,CultureInfo.InvariantCulture.NumberFormat)}
             };

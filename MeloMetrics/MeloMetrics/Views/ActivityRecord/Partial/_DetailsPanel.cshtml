@@ -4,26 +4,35 @@
 
 <div id="container-fluid" style="margin-top:30px;">
     <div class="col-xs-12 col-sm-6 col-md-8" id="content">
-        <h2>Resumen</h2>
-        <strong>Realizado: </strong> @ViewBag.date <br />
-        <strong>Duración: </strong> @ViewBag.duration min<br />
-        <strong>Distancia: </strong> @ViewBag.distance m.<br />
-        <strong>Muestras: </strong> @ViewBag.count <br />
+        <div style="height: 140px;">
+            <h2>Resumen</h2>
+            <strong>Realizado: </strong> @ViewBag.date <br />
+            <strong>Duración: </strong> @ViewBag.duration min<br />
+            <strong>Distancia: </strong> @ViewBag.distance m.<br />
+            <strong>Muestras: </strong> @ViewBag.count <br />
+            <br />
+        </div>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-8" id="middle">
-        <h3>One Mile Walk Test</h3>
-        <h2>@ViewBag.OneMileWalkTest</h2>
+        <div style="height: 140px;">
+            <h3>One Mile Walk Test</h3>
+            <h2>@ViewBag.OneMileWalkTest</h2>
+        </div> 
     </div>
 
     <div class="col-xs-12 col-sm-6 col-md-8" id="middle">
-        <h3>One Half Mile Run Test</h3>
-        <h2>@ViewBag.oneHalfMileRunTest</h2>
-</div>
+        <div style="height: 140px;">
+            <h3>One Half Mile Run Test</h3>
+            <h2>@ViewBag.oneHalfMileRunTest</h2>
+        </div>
+    </div>
 
     <div class="col-xs-12 col-sm-6 col-md-8" id="middle">
-        <h3>Vo2max Speed</h3>
-        <h2>@ViewBag.vo2maxspeedDoceMinutos </h2>
-        <h2>@ViewBag.vo2maxspeedActivityCompleto </h2>
+        <div style="height: 140px;">
+            <h3>Vo2max Speed</h3>
+            <h2>@ViewBag.vo2maxspeedDoceMinutos <small><small>12 minutos</small></small> </h2>
+            <h2>@ViewBag.vo2maxspeedActivityCompleto <small><small>Test completo</small></small> </h2>
+        </div>
     </div>
 </div>
 
