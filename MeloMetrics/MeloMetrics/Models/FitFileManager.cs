@@ -18,6 +18,7 @@ namespace MeloMetrics.Models
         private  readonly string pathPythonScript = "C:/Users/jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/scripts/meloMetricsFitReader.py";
         //urls donde ir a buscar includes y clases para compilar el script
         private readonly string[] searchPaths = { "C:/Users/jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/fitparse", "D:/Program Files (x86)/IronPython 2.7/Lib" };
+
        
     public FitFileManager()
         {
@@ -33,7 +34,7 @@ namespace MeloMetrics.Models
             
             //path del archivo .fit que leera el script
             scope.SetVariable("pathFitFile", pathFitFile);
-            source.Execute(scope);
+            dynamic a = source.Execute(scope);
 
             //result_string = Variabledonde esta el resultado en el archivo python
             string datos = scope.GetVariable("result_string");
