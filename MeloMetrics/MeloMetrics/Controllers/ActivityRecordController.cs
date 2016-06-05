@@ -30,30 +30,46 @@ namespace MeloMetrics.Controllers
 
 
             MongoCursor<ActivityRecord> r = MeloMetricsDB.getMeloMetricsDB().getMyActivitysRecordsCollection(id);
-            if (r.Size() == 0){throw new Exception("No results");}
+            if (r.Size() == 0){
+                throw new Exception("Sin resultados para el activity "+ id);
+            }
+
             calculaMetricas(r);
 
             int pageSize = 3;
             int pageNumber = (page ?? 1);
 
-            return View(r.ToPagedList(pageNumber, pageSize));
+            try
+            {
+                return View(r.ToPagedList(pageNumber, pageSize));
+            }
+            catch (MongoException ex)
+            {
+                throw new MongoException("Error Consultada la Base de Datos");
+            }
         }
 
         private void calculaMetricas(MongoCursor<ActivityRecord> r)
         {
-            List<ActivityRecord> aux = r.ToList<ActivityRecord>();
-            ViewBag.date = aux[0].timestamp;
-            ViewBag.count = aux.Count;
-            ViewBag.distance = aux[aux.Count - 1].distance;
-            ViewBag.duration = (aux[aux.Count - 1].timestamp - aux[0].timestamp).Minutes;
+            try
+            {
+                List<ActivityRecord> aux = r.ToList<ActivityRecord>();
+                ViewBag.date = aux[0].timestamp;
+                ViewBag.count = aux.Count;
+                ViewBag.distance = aux[aux.Count - 1].distance;
+                ViewBag.duration = (aux[aux.Count - 1].timestamp - aux[0].timestamp).Minutes;
 
-            vo2maxSpeedTest(aux);
-            oneHalfMileRunTest(aux);
-            OneMileWalkTest(aux);
+                vo2maxSpeedTest(aux);
+                oneHalfMileRunTest(aux);
+                OneMileWalkTest(aux);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error calculandometricas: " + e.ToString());
+            }
            
         }
 
-       
 
         private void OneMileWalkTest(List<ActivityRecord> registros)
         {
@@ -159,8 +175,7 @@ namespace MeloMetrics.Controllers
                  var acumuladorVo2maxSpeed = 0.0d;
                  var maxHeartRate = 186.0d;
                  var restingHeartRate = 56.0d;
-                 var media = 0.0d;
-
+                
                  //registros del test
                  for (int i = registroInicioTest; i < registros.Count; ++i)
                  {
@@ -203,98 +218,5 @@ namespace MeloMetrics.Controllers
             };
 
         }
-
-        // GET: ActivityRecord
-        /*
-        public ActionResult Index()
-        {
-            long id_user = 0;
-            //List<String>  registros = fitFileManager.readFile();
-          
-            //meloMetricsDB.insertDocumentsOneMileWalkTes(registros, id_user);
-
-            //var oneMileWalktest = meloMetricsDB.getMyOneMileWalkTestCollection(id_user);
-            //var oneMileWalktest = meloMetricsDB.getMyActiVYrECOR(id_user, "14627228151429631557");
-            return View(oneMileWalktest);
-
-        }
-
-        // GET: ActivityRecord/Details/5
-        public ActionResult Details(string id)
-        {
-            var test = meloMetricsDB.OneMileWalkTestCollection.FindOneById(new ObjectId(id));
-            return View(test);
-        }
-
-
-        // GET: ActivityRecord/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: ActivityRecord/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(ActivityRecordController m)
-        {
-            if (ModelState.IsValid)
-            {
-                meloMetricsDB.OneMileWalkTestCollection.Insert(m);
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
-
-        // GET: ActivityRecord/Edit/5
-        public ActionResult Edit(string id)
-        {
-            var test = meloMetricsDB.OneMileWalkTestCollection.FindOneById(new ObjectId(id));
-            return View(test);
-        }
-
-        // POST: ActivityRecord/Edit/5
-        [HttpPost]
-        public ActionResult Edit(ActivityRecordController t)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    meloMetricsDB.OneMileWalkTestCollection.Save(t);
-                    return RedirectToAction("Index");
-                }
-
-                return View();
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ActivityRecord/Delete/5
-        public ActionResult Delete(string Id)
-        {
-            //var rental = meloMetricsDB.OneMileWalkTestCollection.FindOneById(new ObjectId("572b96fcf23adc16440d2daa"));
-            var rental = meloMetricsDB.OneMileWalkTestCollection.FindOneById(new ObjectId(Id));
-            return View(rental);
-        }
-
-        // POST: ActivityRecord/Delete/5
-        [HttpPost]
-        public ActionResult Delete(string id, FormCollection collection)
-        {
-            try
-            {
-                var rental = meloMetricsDB.OneMileWalkTestCollection.Remove(Query.EQ("_id", new ObjectId(id)));
-                return RedirectToAction("Index");
-
-            }
-            catch
-            {
-                return View();
-            }
-        }*/
     }
 }

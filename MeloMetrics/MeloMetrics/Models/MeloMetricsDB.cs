@@ -123,25 +123,6 @@ namespace MeloMetrics.Models{
                         {datos[i+10], Int32.Parse(datos[i+11])} //hearrate
                 };
             return document;
-        }
-
-        //OTHERS
-
-      /*  private string getActivityId(string timestamp)
-        {
-            //convert to epoch time uni time ////no meto aki un array de records por eficiencia y no tener que cargarlo ver diario que explico bien porque diria
-            string t1 = (Math.Ceiling(((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds))).ToString();
-            string t2 = (Math.Ceiling(((DateTime.Parse(timestamp) - new DateTime(1970, 1, 1)).TotalSeconds))).ToString();
-            string id_activity = string.Concat(t1, t2);
-            return id_activity;
-        }
-        public MongoCursor<Activity> getMyActivityCollection(string id_user)
-        {
-            var t = Database.GetCollection<Activity>("Activity").Find(Query.EQ("id_user", id_user));
-            return t;
-        }
-
-       */
-
+        }  
     }
 }

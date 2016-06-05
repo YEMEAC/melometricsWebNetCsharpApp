@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace MeloMetrics.Models
 {
@@ -13,28 +14,34 @@ namespace MeloMetrics.Models
         private ScriptEngine engine;
         private ScriptSource source;
         private ScriptScope scope;
-        private string pathPythonScript = "C:/Users/jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/scripts/meloMetricsFitReader.py";
-
-        public FitFileManager()
+        //programa python para leer los archivos .fit
+        private  readonly string pathPythonScript = "C:/Users/jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/scripts/meloMetricsFitReader.py";
+        //urls donde ir a buscar includes y clases para compilar el script
+        private readonly string[] searchPaths = { "C:/Users/jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/fitparse", "D:/Program Files (x86)/IronPython 2.7/Lib" };
+       
+    public FitFileManager()
         {
             engine = Python.CreateEngine();
-            //urls donde ir a buscar includes y clases para compilar el script
-            engine.SetSearchPaths(new string[] { "C:/Users/jeison/Source/Repos/tfgweb/MeloMetrics/MeloMetrics/python-fitparse-master/fitparse", "D:/Program Files (x86)/IronPython 2.7/Lib" });
+            engine.SetSearchPaths(searchPaths);
+            source = engine.CreateScriptSourceFromFile(pathPythonScript);
+            scope = engine.CreateScope();
                
         }
 
         public List<String> readFile(string pathFitFile)
         {
             
-            source = engine.CreateScriptSourceFromFile(pathPythonScript);
-            scope = engine.CreateScope();
-     
+            //path del archivo .fit que leera el script
             scope.SetVariable("pathFitFile", pathFitFile);
             source.Execute(scope);
 
+            //result_string = Variabledonde esta el resultado en el archivo python
             string datos = scope.GetVariable("result_string");
             string[] tokens = datos.Split('|');
-            List<string> aux = tokens.ToList(); //confirimado que da lo mismo que en el out del archivo al hacer el split-1 , token size=12*lineas-1, lineas = numero de documentso en bd
+            
+            //confirimado que da lo mismo que en el out del archivo al hacer el split-1 , token size=12*lineas-1, lineas = numero de documentso en bd
+            // -1 porque añade un registro vacio alfinal siempre
+            List<string> aux = tokens.ToList(); 
             aux.RemoveAt(aux.Count - 1);
             return aux;
         }

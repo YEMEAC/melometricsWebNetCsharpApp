@@ -16,11 +16,6 @@
 <div id="table-responsiv">
     <table class="table">
         <tr>
-            <th colspan="8">
-                @Html.ActionLink("Create New", "Create")
-            </th>
-        </tr>
-        <tr>
             <th>
                 Momento
             </th>
@@ -64,8 +59,6 @@
                     @Html.DisplayFor(modelItem => item.heart_rate)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                 </td>
             </tr>

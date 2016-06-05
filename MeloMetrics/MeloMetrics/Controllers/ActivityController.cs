@@ -66,65 +66,21 @@ namespace MeloMetrics.Controllers
 
             int pageSize = 3;
             int pageNumber = (page ?? 1);
-            return View(r.ToPagedList(pageNumber, pageSize));
 
-        }
-
-
-        // GET: Activity/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Activity/Create
-         //[ValidateAntiForgeryToken]
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Activity/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(FormCollection collection)
-        {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                return View(r.ToPagedList(pageNumber, pageSize));
             }
-            catch
+            catch (MongoException ex)
             {
-                return View();
+                throw new MongoException("Error Consultada la Base de Datos");
             }
+
         }
 
-        // GET: Activity/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Activity/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
         // GET: Activity/Delete/5
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
             return View();

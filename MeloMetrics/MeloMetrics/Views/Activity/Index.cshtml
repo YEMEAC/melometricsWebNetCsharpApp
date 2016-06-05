@@ -36,20 +36,9 @@
     }
 
 
-
-
-        <p>
-            @Html.ActionLink("Create New", "Create")
-        </p>
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>
-                   Identificador
-                </th>
-                <th> <!-- Este campo es redundante ya que solo vas a ver los de tu propio usuario -->
-                   Propietario
-                </th>
                 <th>
                     @Html.ActionLink("Creado", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter=ViewBag.CurrentFilter  })
                 </th>
@@ -64,21 +53,13 @@
                 <tbody>
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.id_user)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.timestamp)
                         </td>
                         <td>
                             <a href="@Url.Action("Index", "ActivityRecord", new { item.Id })">@Html.DisplayFor(modelItem => item.nombre)</a>
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                            @Html.ActionLink("Borrar", "Delete", new { id = item.Id })
                         </td>
                     </tr>
                 </tbody>
