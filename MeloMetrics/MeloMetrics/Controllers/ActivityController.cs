@@ -80,27 +80,19 @@ namespace MeloMetrics.Controllers
 
 
         // GET: Activity/Delete/5
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Activity/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, FormCollection collection)
+        //[ValidateAntiForgeryToken]
+        public ActionResult Delete(string id)
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                MeloMetricsDB.getMeloMetricsDB().deleteMyActivityCollectionAndRecors(id);
             }
             catch
             {
-                return View();
+                throw new MongoException("Error borrando Activity");
             }
+
+            return RedirectToAction("Index", "Activity");
         }
 
         protected override void OnException(ExceptionContext filterContext)

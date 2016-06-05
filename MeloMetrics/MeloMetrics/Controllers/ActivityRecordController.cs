@@ -202,8 +202,8 @@ namespace MeloMetrics.Controllers
                  ViewBag.vo2maxspeedActivityCompleto = acumuladorVo2maxSpeed / (registros.Count - (registroInicioTest));
              }
          }
-        
 
+        
         protected override void OnException(ExceptionContext filterContext)
         {
             Exception ex = filterContext.Exception;

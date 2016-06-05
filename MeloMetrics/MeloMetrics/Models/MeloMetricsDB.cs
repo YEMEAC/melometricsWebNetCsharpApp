@@ -123,6 +123,12 @@ namespace MeloMetrics.Models{
                         {datos[i+10], Int32.Parse(datos[i+11])} //hearrate
                 };
             return document;
-        }  
+        }
+
+        internal void deleteMyActivityCollectionAndRecors(string id)
+        {
+            Database.GetCollection("Activity").Remove(Query.EQ("_id", new ObjectId(id)));
+            Database.GetCollection("ActivityRecord").Remove(Query.EQ("id_activity", id));
+        }
     }
 }
