@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+   using (Html.BeginForm())
+   {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("Activities", "Index", "Activity")</li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+        <li>@Html.ActionLink("Acerca de ForeverFit", "About", "Home")</li>
+    </ul>
+}
