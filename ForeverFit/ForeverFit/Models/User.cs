@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace ForeverFit.Models
@@ -46,14 +49,13 @@ namespace ForeverFit.Models
         public float RestingHeartRate { get; set; }
 
 
-
         /// <summary>
         /// Checks if user with given password exists in the database
         /// </summary>
         /// <param name="_username">User name</param>
         /// <param name="_password">User password</param>
         /// <returns>True if user exist and password is correct</returns>
-        public bool IsValid(string _username, string _password)
+        public User IsValid(string _username, string _password)
         {
             using (var cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["ForeverFitDB"].ConnectionString))
 
@@ -72,16 +74,16 @@ namespace ForeverFit.Models
                 var reader = cmd.ExecuteReader();
                 if (reader.HasRows)
                 {
-                    mappingUser(reader);
+                    var u = mappingUser(reader); 
                     reader.Dispose();
                     cmd.Dispose();
-                    return true;
+                    return u;
                 }
                 else
                 {
                     reader.Dispose();
                     cmd.Dispose();
-                    return false;
+                    return null;
                 }
             }
         }

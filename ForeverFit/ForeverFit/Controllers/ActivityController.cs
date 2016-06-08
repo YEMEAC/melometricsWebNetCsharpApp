@@ -43,7 +43,7 @@ namespace ForeverFit.Controllers
             }
 
 
-            string id_user = User.Identity.GetUserId();
+            string id_user = User.Identity.GetUserName();
             MongoCursor<Activity> r;
 
             switch (sortOrder)

@@ -29,9 +29,12 @@ namespace ForeverFit.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (user.IsValid(user.UserName, user.Password))
+                var u = user.IsValid(user.UserName, user.Password);
+                if (u!=null)
                 {
-                    FormsAuthentication.SetAuthCookie(user.UserName,false);
+                   
+
+                    FormsAuthentication.SetAuthCookie(u.Id.ToString(),true);
                     return RedirectToAction("Index", "Home");
                 }
                 else
