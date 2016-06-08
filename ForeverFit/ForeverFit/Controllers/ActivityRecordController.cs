@@ -202,8 +202,13 @@ namespace ForeverFit.Controllers
                  //es el total menos las iniciales antes de llegar a los 12 minutos que se descartan
                  //el -1 es para que el registro justo del momento 12 si se tenga en cuenta
                  ViewBag.vo2maxspeedActivityCompleto = string.Format("{0:0.00}", acumuladorVo2maxSpeed / (registros.Count - (registroInicioTest)));
-                     
-                     
+
+
+             }
+             else
+             {
+                  ViewBag.vo2maxspeedDoceMinutos = "N/A";
+                  ViewBag.vo2maxspeedActivityCompleto = "N/A";
              }
          }
 
