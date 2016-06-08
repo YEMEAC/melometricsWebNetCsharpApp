@@ -10,8 +10,14 @@ namespace ForeverFit.Models
 {
     public class User
     {
+
         [Required]
-        [Display(Name = "Nombre Usuario")]
+        [Display(Name = "Id")]
+        public int Id { get; set; }
+
+
+        [Required]
+        [Display(Name = "Usuario")]
         public string UserName { get; set; }
 
         [Required]
@@ -19,8 +25,27 @@ namespace ForeverFit.Models
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember on this computer")]
+        [Display(Name = "Recordar en este equipo")]
         public bool RememberMe { get; set; }
+
+
+        [Required]
+        [Display(Name = "Genero")]
+        public Boolean Genero { get; set; }
+
+        [Required]
+        [Display(Name = "Fecha de nacimiento")]
+        public DateTime BirthDate { get; set; }
+
+        [Required]
+        [Display(Name = "Frecuencia cardiaca máxima")]
+        public float MaxHeartRate { get; set; }
+
+        [Required]
+        [Display(Name = "Frecuencia cardiaca en reposo")]
+        public float RestingHeartRate { get; set; }
+
+
 
         /// <summary>
         /// Checks if user with given password exists in the database
@@ -34,7 +59,7 @@ namespace ForeverFit.Models
 
 
             {
-                string _sql = @"SELECT [Username] FROM [dbo].[System_Users] " +
+                string _sql = @"SELECT * FROM [dbo].[User] " +
                        @"WHERE [Username] = @u AND [Password] = @p";
                 var cmd = new SqlCommand(_sql, cn);
                 cmd.Parameters
@@ -47,6 +72,7 @@ namespace ForeverFit.Models
                 var reader = cmd.ExecuteReader();
                 if (reader.HasRows)
                 {
+                    mappingUser(reader);
                     reader.Dispose();
                     cmd.Dispose();
                     return true;
@@ -58,6 +84,22 @@ namespace ForeverFit.Models
                     return false;
                 }
             }
+        }
+
+        private User mappingUser(SqlDataReader reader)
+        {
+            User u = new User();
+            while (reader.Read())
+            {      
+                u.Id = (int) reader["Id"];
+                u.UserName = reader["UserName"].ToString();
+                u.Password = reader["Password"].ToString();
+                u.Genero = (Boolean)reader["Genero"];
+                u.BirthDate = (DateTime)reader["BirthDate"];
+                u.MaxHeartRate = (float)(double) reader["MaxHeartRate"];
+                u.RestingHeartRate = (float)(double) reader["RestingHeartRate"];
+            }
+            return u;
         }
     }
 }

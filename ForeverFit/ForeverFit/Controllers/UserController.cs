@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Data.Entity;
+
 
 namespace ForeverFit.Controllers
 {
@@ -29,7 +31,7 @@ namespace ForeverFit.Controllers
             {
                 if (user.IsValid(user.UserName, user.Password))
                 {
-                    FormsAuthentication.SetAuthCookie(user.UserName, user.RememberMe);
+                    FormsAuthentication.SetAuthCookie(user.UserName,false);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -43,6 +45,21 @@ namespace ForeverFit.Controllers
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
+        }
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            Exception ex = filterContext.Exception;
+            filterContext.ExceptionHandled = true;
+
+            var model = new HandleErrorInfo(filterContext.Exception, "UserController", "Index");
+
+            filterContext.Result = new ViewResult()
+            {
+                ViewName = "Error",
+                ViewData = new ViewDataDictionary(model)
+            };
+
         }
     }
 }
