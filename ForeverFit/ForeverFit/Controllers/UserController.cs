@@ -5,13 +5,25 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Data.Entity;
+using ForeverFit.Models;
 
 
 namespace ForeverFit.Controllers
 {
     public class UserController : Controller
     {
+        //
+        // GET: /User/
+        public ActionResult Index()
+        {
+            return View();
+        }
 
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
 
         [HttpPost]
         public ActionResult Login(Models.User user)
@@ -32,6 +44,18 @@ namespace ForeverFit.Controllers
                 }
             }
             return View(user);
+        }
+
+        internal static void LoginAux()
+        {
+            User u = new User();
+            u = u.IsValid("aaa", "aa");
+
+            if (u != null)
+            {
+                FormsAuthentication.SetAuthCookie(u.UserName, true);
+                System.Web.HttpContext.Current.Session.Add("user", u);
+            }
         }
 
 

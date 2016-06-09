@@ -96,10 +96,12 @@ namespace ForeverFit.Controllers
                 {
                     //tiempo en completar la distancia
                     var minutos = (registros[registroInicioTest].timestamp - registros[0].timestamp).TotalMinutes;
+                    // 1 male female 0
+                    var genero = ((User)System.Web.HttpContext.Current.Session["user"]).Genero;
+                    var peso = ((User)System.Web.HttpContext.Current.Session["user"]).Weight*1000 *0.00220462;    //pounds  kg to g, 1g =0.00220462 pounds
+                    var edad = GetAge(((User)System.Web.HttpContext.Current.Session["user"]).BirthDate);
+                        
 
-                    var genero = 0;     // 1 male female 0
-                    var peso = 68000 * 0.00220462;    //pounds  1g =0.00220462 pounds
-                    var edad = 36;
 
 
                     var aux = 132.853 - 0.0769 * peso - 0.3877 * edad + 6.315 * genero - 3.2649 * minutos - 0.1565 * registros[registroInicioTest].heart_rate;
@@ -114,6 +116,15 @@ namespace ForeverFit.Controllers
             {
                 ViewBag.OneMileWalkTest = "distancia insuficiente";
             }
+        }
+
+        private int GetAge(DateTime birthday)
+        {
+            DateTime now = DateTime.Today;
+            int age = now.Year - birthday.Year;
+            if (now < birthday.AddYears(age)) age--;
+
+            return age;
         }
 
 
@@ -175,8 +186,8 @@ namespace ForeverFit.Controllers
 
           
                  var acumuladorVo2maxSpeed = 0.0d;
-                 var maxHeartRate = 186.0d;
-                 var restingHeartRate =60.0d;
+                 var maxHeartRate = ((User)System.Web.HttpContext.Current.Session["user"]).MaxHeartRate;
+                 var restingHeartRate = ((User)System.Web.HttpContext.Current.Session["user"]).RestingHeartRate;
                 
                  //registros del test
                  for (int i = registroInicioTest; i < registros.Count; ++i)
@@ -212,7 +223,6 @@ namespace ForeverFit.Controllers
              }
          }
 
-        
         protected override void OnException(ExceptionContext filterContext)
         {
             Exception ex = filterContext.Exception;

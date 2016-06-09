@@ -1,0 +1,22 @@
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.Owin;
+using Owin;
+using ForeverFit.Models;
+
+[assembly: OwinStartup(typeof(ForeverFit.App_Start.Startup))]
+
+namespace ForeverFit.App_Start
+{
+    public class Startup
+    {
+        public void Configuration(IAppBuilder app)
+        {
+            if (((User)System.Web.HttpContext.Current.Session["user"]) == null)
+            {
+
+                User.Login();
+            }
+        }
+    }
+}

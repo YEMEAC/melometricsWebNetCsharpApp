@@ -84,6 +84,38 @@ namespace ForeverFit.Models
             }
         }
 
+        internal static User IsValidfirst(string _username, string _password) {
+            using (var cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["ForeverFitDB"].ConnectionString))
+
+
+            {
+                string _sql = @"SELECT * FROM [dbo].[User] " +
+                       @"WHERE [Username] = @u AND [Password] = @p";
+                var cmd = new SqlCommand(_sql, cn);
+                cmd.Parameters
+                    .Add(new SqlParameter("@u", SqlDbType.NVarChar))
+                    .Value = _username;
+                cmd.Parameters
+                    .Add(new SqlParameter("@p", SqlDbType.NVarChar))
+                    .Value = Helpers.SHA1.Encode(_password);
+                cn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    var u = mappingUser(reader); 
+                    reader.Dispose();
+                    cmd.Dispose();
+                    return u;
+                }
+                else
+                {
+                    reader.Dispose();
+                    cmd.Dispose();
+                    return null;
+                }
+            }
+        }
+
         private User mappingUser(SqlDataReader reader)
         {
             User u = new User();
@@ -100,5 +132,8 @@ namespace ForeverFit.Models
             }
             return u;
         }
+
+
+      
     }
 }

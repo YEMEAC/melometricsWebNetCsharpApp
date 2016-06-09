@@ -16,6 +16,7 @@ namespace ForeverFit.Controllers
 
         // GET: Activity
         //[ValidateAntiForgeryToken]
+        [Authorize]
         public ViewResult Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
 
@@ -42,8 +43,8 @@ namespace ForeverFit.Controllers
                 aux = searchString;
             }
 
-
-            string id_user = User.Identity.GetUserName();
+            var a = ((User)System.Web.HttpContext.Current.Session["user"]);
+            string id_user = "1";
             MongoCursor<Activity> r;
 
             switch (sortOrder)
