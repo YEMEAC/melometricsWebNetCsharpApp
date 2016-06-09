@@ -11,43 +11,77 @@ using IronPython.Hosting;
 using Microsoft.Scripting;
 using MongoDB.Driver;
 using PagedList;
+using System.Web.Security;
 
 namespace ForeverFit.Controllers
 {
     public class ActivityRecordController : Controller
     {
-       
-     
+
+
+    
+
         // GET: ActivityRecord
         //[ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Index(string id, int? page)
         {
 
-            if (id != null)
+              //si se ha iniciado sesion y no se ha cerrado
+            if (Request.Cookies.AllKeys.Contains("user") && Request.Cookies.AllKeys.Contains("pwd"))
             {
-                ViewBag.IdActivity = id;
+                //si el user se ha borrado -> al parar el servidor o cerrar la web para,
+                //lo recupero porque no se cerre la sesion
+                if (System.Web.HttpContext.Current.Session["user"] == null)
+                {
+                    if (!UserController.LoginAux(Request.Cookies["user"].Value, Request.Cookies["pwd"].Value))
+                    {
+                        //este caso solo pasaria si se borrara el usuario de bd directamente
+                        //cuando no ha hecho logout me aseguro de borrar todo y cerrar la sesion
+                        return RedirectToAction("Logout", "User");
+                    }
+                }
+
+                if (id == null || string.IsNullOrEmpty(id))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                if (id != null)
+                {
+                    ViewBag.IdActivity = id;
+                }
+
+
+                MongoCursor<ActivityRecord> r = ForeverFitDB.getForeverFitDB().getMyActivitysRecordsCollection(id);
+                if (r.Size() == 0)
+                {
+                    throw new Exception("Sin resultados para el activity " + id);
+                }
+
+                calculaMetricas(r);
+
+                int pageSize = 13;
+                int pageNumber = (page ?? 1);
+
+                try
+                {
+                    return View(r.ToPagedList(pageNumber, pageSize));
+                }
+                catch (MongoException ex)
+                {
+                    throw new MongoException("Error Consultada la Base de Datos");
+                }
             }
-
-
-            MongoCursor<ActivityRecord> r = ForeverFitDB.getForeverFitDB().getMyActivitysRecordsCollection(id);
-            if (r.Size() == 0){
-                throw new Exception("Sin resultados para el activity "+ id);
-            }
-
-            calculaMetricas(r);
-
-            int pageSize = 13;
-            int pageNumber = (page ?? 1);
-
-            try
+            else
             {
-                return View(r.ToPagedList(pageNumber, pageSize));
+                //usuario ha quedado logueado pero se ha borrado la coocki
+                //me aseguro de borrar todo y cerrar la sesion
+                return RedirectToAction("Logout", "User");
             }
-            catch (MongoException ex)
-            {
-                throw new MongoException("Error Consultada la Base de Datos");
-            }
+          
         }
+
 
         private void calculaMetricas(MongoCursor<ActivityRecord> r)
         {

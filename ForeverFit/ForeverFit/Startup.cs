@@ -10,10 +10,7 @@ namespace ForeverFit
     {
         public void Configuration(IAppBuilder app)
         {
-            if (((User)System.Web.HttpContext.Current.Session["user"]) == null)
-            {
-                UserController.LoginAux();
-            } 
+           
         }
     }
 }

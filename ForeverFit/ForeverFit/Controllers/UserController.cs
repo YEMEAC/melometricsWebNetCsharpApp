@@ -12,11 +12,11 @@ namespace ForeverFit.Controllers
 {
     public class UserController : Controller
     {
-        //
-        // GET: /User/
+
+        
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -33,10 +33,17 @@ namespace ForeverFit.Controllers
                 var u = user.IsValid(user.UserName, user.Password);
                 if (u!=null)
                 {
+
+                    Response.Cookies["user"].Value = user.UserName;
+                    Response.Cookies["pwd"].Value = user.Password;
+
                     FormsAuthentication.SetAuthCookie(u.UserName,true);
+
+                    //guardar la infor del usuario logueado en la sesion - se borra al parar el server o cerrar la web
                     System.Web.HttpContext.Current.Session.Add("user", u);
 
-                    return RedirectToAction("Index", "Home");
+                    FormsAuthentication.RedirectFromLoginPage(u.UserName,true);
+                    //return RedirectToAction("Index", "Home");  
                 }
                 else
                 {
@@ -46,22 +53,30 @@ namespace ForeverFit.Controllers
             return View(user);
         }
 
-        internal static void LoginAux()
+
+
+        internal static bool LoginAux(string user, string pwd)
         {
             User u = new User();
-            u = u.IsValid("aaa", "aa");
+            u = u.IsValid(user, pwd);
 
             if (u != null)
             {
                 FormsAuthentication.SetAuthCookie(u.UserName, true);
                 System.Web.HttpContext.Current.Session.Add("user", u);
+                return true;
             }
+            return false;
         }
 
 
         [Authorize]
         public ActionResult Logout()
         {
+            //borrar cookies
+            Response.Cookies["user"].Expires = DateTime.Now.AddDays(-1);   
+            Response.Cookies["pwd"].Expires = DateTime.Now.AddDays(-1);
+            Session.Abandon();
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }

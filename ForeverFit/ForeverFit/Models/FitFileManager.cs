@@ -15,9 +15,9 @@ namespace ForeverFit.Models
         private ScriptSource source;
         private ScriptScope scope;
         //programa python para leer los archivos .fit
-        private readonly string pathPythonScript = "C:/Users/ymeloa/Source/Repos/tfgweb/ForeverFit/ForeverFit/python-fitparse-master/scripts/ForeverFitFitReader.py";
+        private readonly string pathPythonScript = "C:/Users/jeison/Source/Repos/tfgweb/ForeverFit/ForeverFit/python-fitparse-master/scripts/ForeverFitFitReader.py";
         //urls donde ir a buscar includes y clases para compilar el script
-        private readonly string[] searchPaths = { "C:/Users/ymeloa/Source/Repos/tfgweb/ForeverFit/ForeverFit/python-fitparse-master/fitparse", "D:/Program Files (x86)/IronPython 2.7/Lib" };
+        private readonly string[] searchPaths = { "C:/Users/jeison/Source/Repos/tfgweb/ForeverFit/ForeverFit/python-fitparse-master/fitparse", "D:/Program Files (x86)/IronPython 2.7/Lib" };
 
        
     public FitFileManager()

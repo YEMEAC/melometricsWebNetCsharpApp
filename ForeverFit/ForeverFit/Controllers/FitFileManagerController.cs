@@ -13,11 +13,17 @@ namespace ForeverFit.Controllers
     public class FitFileManagerController : Controller
     {
 
+        public ActionResult Index()
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
         private readonly FitFileManager fitFileManager = new FitFileManager();
 
         // This action handles the form POST and the upload
         [HttpPost]
-        public ActionResult Index(HttpPostedFileBase fileNameIdController)
+        [Authorize]
+        public ActionResult Upload(HttpPostedFileBase fileNameIdController)
         {
             // vericar que se ha seleccionado unarchivo
             if (fileNameIdController != null && fileNameIdController.ContentLength > 0)
