@@ -24,7 +24,7 @@ namespace ForeverFit.Controllers
             {
 
                 //subir archivo al server
-                string id_user = User.Identity.GetUserId();
+                string id_user = ((User) System.Web.HttpContext.Current.Session["user"]).Id.ToString();
                 var fileName = Path.GetFileName(fileNameIdController.FileName);
                 string path = Path.Combine(Server.MapPath("~/uploads"), fileName);
                 fileNameIdController.SaveAs(path);

@@ -11,18 +11,7 @@ namespace ForeverFit.Controllers
 {
     public class UserController : Controller
     {
-        //
-        // GET: /User/
-        public ActionResult Index()
-        {
-            return View();
-        }
 
-        [HttpGet]
-        public ActionResult Login()
-        {
-            return View();
-        }
 
         [HttpPost]
         public ActionResult Login(Models.User user)
@@ -32,9 +21,9 @@ namespace ForeverFit.Controllers
                 var u = user.IsValid(user.UserName, user.Password);
                 if (u!=null)
                 {
-                   
+                    FormsAuthentication.SetAuthCookie(u.UserName,true);
+                    System.Web.HttpContext.Current.Session.Add("user", u);
 
-                    FormsAuthentication.SetAuthCookie(u.Id.ToString(),true);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -44,6 +33,9 @@ namespace ForeverFit.Controllers
             }
             return View(user);
         }
+
+
+        [Authorize]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();

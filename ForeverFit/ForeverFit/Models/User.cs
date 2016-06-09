@@ -28,9 +28,6 @@ namespace ForeverFit.Models
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
 
-        [Display(Name = "Recordar en este equipo")]
-        public bool RememberMe { get; set; }
-
 
         [Required]
         [Display(Name = "Genero")]
@@ -49,12 +46,6 @@ namespace ForeverFit.Models
         public float RestingHeartRate { get; set; }
 
 
-        /// <summary>
-        /// Checks if user with given password exists in the database
-        /// </summary>
-        /// <param name="_username">User name</param>
-        /// <param name="_password">User password</param>
-        /// <returns>True if user exist and password is correct</returns>
         public User IsValid(string _username, string _password)
         {
             using (var cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["ForeverFitDB"].ConnectionString))
