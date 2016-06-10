@@ -53,7 +53,28 @@ namespace ForeverFit.Controllers
             return View(user);
         }
 
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public ActionResult Register(Models.User user)
+        {
+            if (ModelState.IsValid)
+            {
+                if (user.Persist())
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Error registrando usuario");
+                }
+            }
+            return View(user);
+        }
 
         internal static bool LoginAux(string user, string pwd)
         {

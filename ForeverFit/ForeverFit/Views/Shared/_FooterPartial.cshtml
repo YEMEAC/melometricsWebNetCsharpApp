@@ -1,19 +1,7 @@
-﻿@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated)
-{
-    using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+﻿
+
         <footer>
             <p>
             @Html.ActionLink("Acerca de Forever Fit", "About", "Home") |
             &copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
-    }
-}
-else
-{
-    <footer>
-        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-    </footer>
-}

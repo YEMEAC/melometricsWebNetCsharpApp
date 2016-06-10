@@ -39,6 +39,7 @@ namespace ForeverFit.Models
 
 
         [Required]
+        [DataType(DataType.Date)]
         [Display(Name = "Fecha de nacimiento")]
         public DateTime BirthDate { get; set; }
 
@@ -83,6 +84,48 @@ namespace ForeverFit.Models
                 }
             }
         }
+        
+        internal bool Persist()
+        {
+            using (var cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["ForeverFitDB"].ConnectionString))
+            {
+
+                string _sql = "INSERT INTO [dbo].[User] ([Username], [Password]," +
+                    "[RegDate], [Genero], [BirthDate], [MaxHeartRate], [RestingHeartRate]," +
+                 "[Weight]) VALUES (@un, @p,@rd, @g, @bd, @mhr, @rhr, @w)";
+
+                var cmd = new SqlCommand(_sql, cn);
+                cmd.Parameters
+                    .Add(new SqlParameter("@un", SqlDbType.NVarChar))
+                    .Value = this.UserName;
+                cmd.Parameters
+                    .Add(new SqlParameter("@p", SqlDbType.NVarChar))
+                    .Value = Helpers.SHA1.Encode(this.Password);
+                cn.Open();
+                cmd.Parameters
+                   .Add(new SqlParameter("@rd", SqlDbType.Date))
+                   .Value = DateTime.Now;
+                cmd.Parameters
+                    .Add(new SqlParameter("@g", SqlDbType.Bit))
+                    .Value = this.Genero;
+                cn.Open();
+                cmd.Parameters
+                   .Add(new SqlParameter("@bd", SqlDbType.Date))
+                   .Value = this.BirthDate;
+                cmd.Parameters
+                    .Add(new SqlParameter("@mhr", SqlDbType.Float))
+                    .Value = this.MaxHeartRate;
+                cmd.Parameters
+                   .Add(new SqlParameter("@hr", SqlDbType.Float))
+                   .Value = this.RestingHeartRate;
+                cmd.Parameters
+                   .Add(new SqlParameter("@w", SqlDbType.Float))
+                   .Value = this.Weight;
+                cn.Open();
+                var reader = cmd.ExecuteReader();
+                return true;
+            }
+        }
 
         private User mappingUser(SqlDataReader reader)
         {
@@ -100,5 +143,7 @@ namespace ForeverFit.Models
             }
             return u;
         }
+
+        
     }
 }

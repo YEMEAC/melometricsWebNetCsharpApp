@@ -1,11 +1,13 @@
-﻿@using Microsoft.AspNet.Identity
-@model ForeverFit.Models.User
+﻿@model ForeverFit.Models.User
 @{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@if (!Request.IsAuthenticated)
+
+@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
 {
+
 <h2>@ViewBag.Title.</h2>
 <div class="row">
     <div class="col-md-8">
@@ -43,7 +45,7 @@
 }
 else
 {
-    <h3>Ya estas logueado.</h3>
+    ya estas logueado
 }
 
 
