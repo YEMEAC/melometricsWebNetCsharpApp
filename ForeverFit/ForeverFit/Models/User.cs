@@ -52,6 +52,7 @@ namespace ForeverFit.Models
         public float RestingHeartRate { get; set; }
 
 
+
         public User IsValid(string _username, string _password)
         {
             using (var cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["ForeverFitDB"].ConnectionString))
@@ -101,14 +102,12 @@ namespace ForeverFit.Models
                 cmd.Parameters
                     .Add(new SqlParameter("@p", SqlDbType.NVarChar))
                     .Value = Helpers.SHA1.Encode(this.Password);
-                cn.Open();
                 cmd.Parameters
                    .Add(new SqlParameter("@rd", SqlDbType.Date))
                    .Value = DateTime.Now;
                 cmd.Parameters
                     .Add(new SqlParameter("@g", SqlDbType.Bit))
                     .Value = this.Genero;
-                cn.Open();
                 cmd.Parameters
                    .Add(new SqlParameter("@bd", SqlDbType.Date))
                    .Value = this.BirthDate;
@@ -116,13 +115,15 @@ namespace ForeverFit.Models
                     .Add(new SqlParameter("@mhr", SqlDbType.Float))
                     .Value = this.MaxHeartRate;
                 cmd.Parameters
-                   .Add(new SqlParameter("@hr", SqlDbType.Float))
+                   .Add(new SqlParameter("@rhr", SqlDbType.Float))
                    .Value = this.RestingHeartRate;
                 cmd.Parameters
                    .Add(new SqlParameter("@w", SqlDbType.Float))
                    .Value = this.Weight;
                 cn.Open();
                 var reader = cmd.ExecuteReader();
+                reader.Dispose();
+                cmd.Dispose();
                 return true;
             }
         }

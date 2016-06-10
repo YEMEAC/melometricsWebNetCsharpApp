@@ -53,9 +53,15 @@ namespace ForeverFit.Controllers
             return View(user);
         }
 
+
         [HttpGet]
         public ActionResult Register()
         {
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            ViewBag.GenreList = getGenreList();
             return View();
         }
 
@@ -64,15 +70,18 @@ namespace ForeverFit.Controllers
         {
             if (ModelState.IsValid)
             {
+                user.Genero = Int32.Parse(Request.Form["GenreList"]);
                 if (user.Persist())
                 {
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
+                    
                     ModelState.AddModelError("", "Error registrando usuario");
                 }
             }
+            ViewBag.GenreList = getGenreList();
             return View(user);
         }
 
@@ -100,6 +109,17 @@ namespace ForeverFit.Controllers
             Session.Abandon();
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
+        }
+
+        private List<SelectListItem> getGenreList()
+        {
+            List<SelectListItem> items = new List<SelectListItem>();
+
+            items.Add(new SelectListItem { Text = "Mujer", Value = "0" });
+
+            items.Add(new SelectListItem { Text = "Hombre", Value = "1", Selected = true });
+
+            return items;
         }
 
         protected override void OnException(ExceptionContext filterContext)
