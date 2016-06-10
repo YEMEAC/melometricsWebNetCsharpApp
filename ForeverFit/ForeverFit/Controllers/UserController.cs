@@ -71,12 +71,16 @@ namespace ForeverFit.Controllers
             if (ModelState.IsValid)
             {
                 user.Genero = Int32.Parse(Request.Form["GenreList"]);
-                if (user.Persist())
+                var r= user.Persist();
+                if (r==0)
                 {
+                    Login(user);
                     return RedirectToAction("Index", "Home");
                 }
-                else
+                else if(r==2)
                 {
+                    ModelState.AddModelError("", "Nombre de usuario en uso");
+                }else{
                     
                     ModelState.AddModelError("", "Error registrando usuario");
                 }

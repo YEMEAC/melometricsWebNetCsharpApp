@@ -86,8 +86,33 @@ namespace ForeverFit.Models
             }
         }
         
-        internal bool Persist()
+        internal int Persist()
         {
+
+            using (var cm = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["ForeverFitDB"].ConnectionString))
+            {
+                string _sqll = @"SELECT * FROM [dbo].[User] " +
+                     @"WHERE [Username] = @u";
+
+                var cmdd = new SqlCommand(_sqll, cm);
+                cmdd.Parameters
+                    .Add(new SqlParameter("@u", SqlDbType.NVarChar))
+                    .Value = this.UserName;
+
+                cm.Open();
+                var readerr = cmdd.ExecuteReader();
+               
+
+                if (readerr.HasRows)
+                {
+                    readerr.Dispose();
+                    cmdd.Dispose();
+                    return 2;
+                }
+                readerr.Dispose();
+                cmdd.Dispose();
+            }
+
             using (var cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["ForeverFitDB"].ConnectionString))
             {
 
@@ -122,9 +147,16 @@ namespace ForeverFit.Models
                    .Value = this.Weight;
                 cn.Open();
                 var reader = cmd.ExecuteReader();
+
+                if (reader.RecordsAffected == 1)
+                {
+                    reader.Dispose();
+                    cmd.Dispose();
+                    return 0;
+                }
                 reader.Dispose();
                 cmd.Dispose();
-                return true;
+                return 1;
             }
         }
 
