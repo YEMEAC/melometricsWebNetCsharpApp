@@ -177,6 +177,48 @@ namespace ForeverFit.Models
             return u;
         }
 
+
+
+        internal int PersistEdit()
+        {
+            using (var cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["ForeverFitDB"].ConnectionString))
+            {
+
+                string _sql = "UPDATE  [dbo].[User] SET [Genero] = @g, [BirthDate] = @bd, [MaxHeartRate] = @mhr, [Weight] = @w, [RestingHeartRate] = @rhr WHERE [Id] = @i";
+                    
+                var cmd = new SqlCommand(_sql, cn);
+                cmd.Parameters
+                    .Add(new SqlParameter("@i", SqlDbType.Int))
+                    .Value = this.Id;
+                cmd.Parameters
+                    .Add(new SqlParameter("@g", SqlDbType.Bit))
+                    .Value = this.Genero;
+                cmd.Parameters
+                   .Add(new SqlParameter("@bd", SqlDbType.Date))
+                   .Value = this.BirthDate;
+                cmd.Parameters
+                    .Add(new SqlParameter("@mhr", SqlDbType.Float))
+                    .Value = this.MaxHeartRate;
+                cmd.Parameters
+                   .Add(new SqlParameter("@rhr", SqlDbType.Float))
+                   .Value = this.RestingHeartRate;
+                cmd.Parameters
+                   .Add(new SqlParameter("@w", SqlDbType.Float))
+                   .Value = this.Weight;
+                cn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.RecordsAffected == 1)
+                {
+                    reader.Dispose();
+                    cmd.Dispose();
+                    return 0;
+                }
+                reader.Dispose();
+                cmd.Dispose();
+                return 1;
+            }
+        }
         
     }
 }

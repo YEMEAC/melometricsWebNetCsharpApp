@@ -89,6 +89,43 @@ namespace ForeverFit.Controllers
             return View(user);
         }
 
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult Edit()
+        {
+            
+            var u = (User)System.Web.HttpContext.Current.Session["user"];
+            ViewBag.GenreList = getGenreList();
+            return View(u);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult Edit(Models.User user)
+        {
+            ModelState.Remove("Password");
+            ModelState.Remove("Username");
+            if (ModelState.IsValid)
+            {
+                user.Genero = Int32.Parse(Request.Form["GenreList"]);
+                var r = user.PersistEdit();
+                if (r != 0)
+                {
+                    ModelState.AddModelError("", "Error modificando el usuario");
+                }
+                else
+                {
+                    System.Web.HttpContext.Current.Session.Remove("user");
+                    System.Web.HttpContext.Current.Session.Add("user", user);
+                }
+            }
+
+            ViewBag.GenreList = getGenreList();
+            return View(user);
+        }
+
+
         internal static bool LoginAux(string user, string pwd)
         {
             User u = new User();
