@@ -1,0 +1,31 @@
+
+54MH5016.FIT 49 minutos
+	Web
+		Vo2max Speed
+			27,1643468781157
+			22,9590842955539
+
+		One Mile Walk Test
+			estimacion 70,55
+			recorre la milla y media a los 4 minutos, registro 73
+
+
+		One Half Mile Run Test
+			estimacion 74,70
+			recorre la milla y media a los 6,78 minutos, registro 117
+
+
+
+	SmartWatch		
+		al llegar a 12min:								26,36  
+		al llegar a 49min:								23,8 entonces solo queda ritmo cardiaco sin velocidad y empieza a bajar la estimacion con cada iteracion
+		
+		
+	One Mile Walk Test
+			estimacion 70.52
+			recorre la milla y media a los 4:55 minutos, 
+
+
+		One Half Mile Run Test
+			estimacion 74,53
+			recorre la milla y media a los 6:48 minutos

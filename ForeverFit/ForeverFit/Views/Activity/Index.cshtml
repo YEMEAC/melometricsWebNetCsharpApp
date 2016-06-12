@@ -5,17 +5,13 @@
 @using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "Activities";
-    //Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
 
 
 
     @using (Html.BeginForm("Upload", "FitFileManager", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-        @Html.Partial("Partial/_SummaryPanel")
-
+  
     <div id="containerUploadFile" style="margin-top:30px;">
         <div class="fileUpload btn btn-primary">
             <span>Archivo</span>
@@ -28,8 +24,6 @@
     }
     
     
-
-
     <table class="table table-hover" >
         <thead>
             <tr>
@@ -72,7 +66,7 @@
 
 </table>
 <br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

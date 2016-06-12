@@ -1,0 +1,38 @@
+
+54LF5237.FIT 19 minutos
+	Web
+		Vo2max Speed
+			7,11
+			15,29
+
+		One Mile Walk Test
+			estimacion 76,55
+			recorre la milla y media a los 3,78 min  registro 52
+
+
+		One Half Mile Run Test
+			estimacion 87,26
+			recorre la milla y media a los 5,76 minutos, registro 86
+
+
+
+	SmartWatch		
+		al llegar a 12min:								
+		al llegar a 19min:			9.07 	//creo que se qued con el ultimo hrv y speed todo el rato que en dado caso es 100 y 1.38 respectivamente porque me fui y lo deje asi un monton 
+												reserve 0.317460
+		
+		
+	One Mile Walk Test
+			estimacion 76.49
+			recorre la milla y media a los 3:48 mins
+			
+			Peso pounds 149.914169 peso gramos 68000
+			Edad 36
+			Genero 0 female
+			tiempo 3.800000 minutos segundos 228 ---> 3.8 por comandos forma fraccionaria
+			hear rate 118
+
+
+		One Half Mile Run Test
+			estimacion  87,02
+			recorre la milla y media a los 5:47 mins ---> 5.78 por comandos forma fraccionaria

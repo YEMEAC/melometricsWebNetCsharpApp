@@ -1,28 +1,43 @@
-﻿@{
+﻿@using Microsoft.AspNet.Identity
+@{
     ViewBag.Title = "Inicio ";
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>Forever Fit</h1>
+    <p class="lead">Manten un seguimiento de la evolución de tu capacidad aeróbica y saca el máximo partido a tus entrenamientos </p>
+    
+@if (!Request.IsAuthenticated)
+{
+    <p>@Html.ActionLink("Empezar", "Register", new { controller = "User"} , new { @class = "btn btn-primary btn-lg" })</p>
+}
+
 </div>
 
 <div class="row">
     <div class="col-md-4">
         <h2>One Mile Walk Test</h2>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            En este predictor del VO2Max se tienen en cuenta: genero, peso y edad del usuario.
+            Conjuntamente con el tiempo que se ha tardado en recorrer una milla y el ritmo cardiaco
+            en dicho momento. En este test no se debe correr sino
+            caminar tan rápido como sea posible. Supone un test suave sin necesidad de realizar un
+            esfuerzo máximo por parte del usuario.
         </p>
     </div>
     <div class="col-md-4">
         <h2>One Half Mile Run Test</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p>Este test consiste en recorrer 1.5 millas  en el menor
+         tiempo posible para tener una estimación de su VO2MAX, por lo tanto es una prueba de esfuerzo.
+        Está permitido correr o caminar. Debido a que requiere un esfuerzo 
+        importante el usuario debe ser cuidadoso y no sobrepasar sus capacidades. En este test no
+        se tiene en cuenta el tiempo que se tarda en recorrer la distancia marcada.</p>
     </div>
     <div class="col-md-4">
         <h2>Vo2max Speed</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p>Predictor de la velocidad máxima alcanzable al llegar al VO2Max, este test require una <strong>
+    duración minima de 12 minutos</strong>, apartir de entonces la estimación será continua por lo que la estimación final
+        puede ser ligeramente diferente a la inicial. Para este test es necesaria la fruencia cardiaca en reposo del usuario
+        y su frecuencia cardiaca máxima, mientras mas precisos sean estos datos mayor será la estimación.</p>
     </div>
 </div>

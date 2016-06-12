@@ -22,6 +22,10 @@ namespace ForeverFit.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
@@ -94,10 +98,14 @@ namespace ForeverFit.Controllers
         [Authorize]
         public ActionResult Edit()
         {
-            
-            var u = (User)System.Web.HttpContext.Current.Session["user"];
-            ViewBag.GenreList = getGenreList();
-            return View(u);
+            if (!Request.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var user = (User)System.Web.HttpContext.Current.Session["user"];
+            ViewBag.GenreList = getGenreListEdit(user.Genero);
+            return View(user);
         }
 
         [HttpPost]
@@ -121,7 +129,7 @@ namespace ForeverFit.Controllers
                 }
             }
 
-            ViewBag.GenreList = getGenreList();
+            ViewBag.GenreList = getGenreListEdit(user.Genero);
             return View(user);
         }
 
@@ -159,6 +167,20 @@ namespace ForeverFit.Controllers
             items.Add(new SelectListItem { Text = "Mujer", Value = "0" });
 
             items.Add(new SelectListItem { Text = "Hombre", Value = "1", Selected = true });
+
+            return items;
+        }
+
+        private List<SelectListItem> getGenreListEdit(int genre)
+        {
+            List<SelectListItem> items = new List<SelectListItem>();
+
+            if (genre == 1)
+            {
+                return getGenreList();
+            }
+            items.Add(new SelectListItem { Text = "Mujer", Value = "0", Selected = true});
+            items.Add(new SelectListItem { Text = "Hombre", Value = "1" });
 
             return items;
         }
