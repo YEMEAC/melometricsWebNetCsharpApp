@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ForeverFit.BundleConfig">
+    <Position X="16" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\BundleConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForeverFit.FilterConfig">
+    <Position X="15.75" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\FilterConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForeverFit.RouteConfig">
+    <Position X="15.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\RouteConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForeverFit.MvcApplication">
+    <Position X="16" Y="7" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Global.asax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForeverFit.Startup">
+    <Position X="15.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Startup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForeverFit.Controllers.ActivityController">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAEAAgAAAAA=</HashCode>
+      <FileName>Controllers\ActivityController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForeverFit.Controllers.ActivityRecordController">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAACABAAgAAAAAAAAAAAAAAAAAAAAEAAgQAAAA=</HashCode>
+      <FileName>Controllers\ActivityRecordController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForeverFit.Controllers.FitFileManagerController">
+    <Position X="6.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAgAAAAAAAAAAAEAAgAAAAA=</HashCode>
+      <FileName>Controllers\FitFileManagerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForeverFit.Controllers.HomeController">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAEAAgAAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForeverFit.Controllers.UserController">
+    <Position X="4.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAAIAAAADAAACAAEQIgAAAAA=</HashCode>
+      <FileName>Controllers\UserController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForeverFit.Models.Activity">
+    <Position X="2.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAACAAAAAAAAAAgAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Models\Activity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForeverFit.Models.ActivityRecord">
+    <Position X="0.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAACAAAAAgAAAAAAAAAAAEkAAIQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ActivityRecord.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForeverFit.Models.FitFileManager">
+    <Position X="6.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAABAAAAAAAIAAAAgAAAAAAAAgAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Models\FitFileManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForeverFit.Models.ForeverFitDB">
+    <Position X="8.75" Y="4.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>QQAEAAAAAEAAAAAQQAAAgACEAAABAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Models\ForeverFitDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForeverFit.Models.User">
+    <Position X="4.5" Y="4.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAwAAAAAAAAAAgAAAYQACAAAAACAQAAAAAAAAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Helpers.SHA1">
+    <Position X="6" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Helpers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

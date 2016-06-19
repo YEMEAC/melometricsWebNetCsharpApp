@@ -20,7 +20,7 @@ namespace ForeverFit.Controllers
 
         private readonly FitFileManager fitFileManager = new FitFileManager();
 
-        // This action handles the form POST and the upload
+
         [HttpPost]
         [Authorize]
         public ActionResult Upload(HttpPostedFileBase fileNameIdController)

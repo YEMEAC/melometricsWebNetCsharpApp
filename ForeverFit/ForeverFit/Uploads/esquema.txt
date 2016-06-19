@@ -1,0 +1,99 @@
+
+108719, 10952, 10842
+Desarollo
+	- Analisis requisitos
+		- funcionales
+		- no funcionales
+		
+	- Espeficiaccion
+		- actores
+		- diagramas de casos de uso
+				-smartwatch
+				- web
+				
+	- modelo conceptual
+			-  esquema conceptual (diagrama clases)
+					- smatwatch 
+						- descripcion de clases
+						- descripcion general de las asociaciones y porque asi
+					- web
+				- modelo de comportamiento (diagrama de flujo para cada uno de los casos de uso) 
+	
+Diseño
+		- arquitectura logica
+		- arquitectura fisica
+		- capara de presentacion
+			- mapa de navegacion
+			- diseño de pantallas	
+		- diagrama de secuencia (este kizas no)		
+		- capra de domino
+		- capara de datos
+		
+Implementacion
+	- tecnologias utilizadas
+	- detalles de implementacion
+			- extraccion ficheros .fit
+			- ...
+			- ...
+
+pruebas
+
+			
+		- Iteraciones --> descripcion de las iteraciones problemas encontrados etc --> mirar diario
+	
+
+- conclusiones
+	- justificacion de las compotencias
+	- trabajo futuro
+				
+ - guia de usuario de la app
+	- smartwatch
+	- web
+
+	
+posterior desarollor con R 
+o
+https://www.microsoft.com/en-us/server-cloud/products/r-server/
+
+porque ficheros fit?
+por garmin
+porque el unico que tiene toda la informacion tipo rutas, alturas, temperatus frequencia cardiaca , variabilidad de la frequencia cardiaca,
+temas de respiracion permite todo ya esta de forma nativa el res
+
+
+centrarme en las maetricas
+no dar mucho tema a la apariencia no era el objetivo
+
+
+opinion personal de connect iq en la memoria como profesional
+
+
+- relacion pulsometro smartwatch
+- garmin sobrevivir
+
+
+-----------
+
+- en la bd la informacion principalmente se consultara, toda la informacion de la metrica solo sera leida
+no hay modificaciones, como mucho la infor del usuario:
+
+una primera oopcion en mondb una clase para usuario y luego una
+collection para el test de la velocidad y otro para los otros dos test
+clave foranea a documento user, rapido porque haces collect de la info
+de metricas con el id del usuario.
+
+La relacion estara normalizada al no repetir la informacion del usuario
+y tampoco nos afectara a las join ya que nunca vamos a hacer consultas
+en las que tengamos que hacer una join de propiedades de usuario y de
+metrica.  ver la parte de normalizacion y joins del articulo
+http://www.sitepoint.com/sql-vs-nosql-differences/
+
+
+porque mongodb
+
+- no seran necesarias transacciones. pero garantiza operaciones atomicas a nivel de documento. 
+- con el esquema solo necesitaremos hacer proyecciones de los datos de las metricas, no necesito hacer joins se puede hacer con una projeccion
+- no se modificaran datos solo los del usuario
+- la relacion entre usuario y metrica estara normalizada
+	
+	

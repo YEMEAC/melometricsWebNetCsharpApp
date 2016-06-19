@@ -19,7 +19,7 @@
 
         </div>
         <span style="width:160px;" class='btn btn-info' id="upload-file-info">&nbsp;</span>
-        <input type="submit" class="btn btn-warning" value="ok">
+        <input type="submit" class="btn btn-warning" value="Subir">
     </div>
     }
     
@@ -38,11 +38,12 @@
                 </th>
             </tr>
             <tr>
-                <th>
-                    @Html.ActionLink("Creado", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter=ViewBag.CurrentFilter  })
-                </th>
+               
                 <th>
                     @Html.ActionLink("Nombre", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter=ViewBag.CurrentFilter})
+                </th>
+				 <th>
+                    @Html.ActionLink("Fecha Realización", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter=ViewBag.CurrentFilter  })
                 </th>
                 <th>Acciones</th>
             </tr>
@@ -51,14 +52,15 @@
             {
                 <tbody>
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.timestamp)
-                        </td>
+                        
                         <td>
                             <a href="@Url.Action("Index", "ActivityRecord", new { item.Id })">@Html.DisplayFor(modelItem => item.nombre)</a>
                         </td>
+						<td>
+                            @Html.DisplayFor(modelItem => item.timestamp)
+                        </td>
                         <td>
-                            @Html.ActionLink("Borrar", "Delete", new { id = item.Id })
+                            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
                         </td>
                     </tr>
                 </tbody>
